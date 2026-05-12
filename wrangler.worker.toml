@@ -1,0 +1,51 @@
+name = "my-geobase"
+main = "worker/index.js"
+compatibility_date = "2026-05-12"
+workers_dev = true
+routes = [
+  { pattern = "geobase.online/*", zone_name = "geobase.online" },
+  { pattern = "www.geobase.online/*", zone_name = "geobase.online" }
+]
+
+[vars]
+APP_ORIGIN = "https://geobase.online"
+CREEM_API_BASE = "https://api.creem.io"
+CREEM_ENV = "live"
+
+[[kv_namespaces]]
+binding = "ANALYTICS_KV"
+id = "be10820b635042468a0c7776320a682e"
+
+[assets]
+directory = "./out"
+binding = "SITE_ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = [
+  "/",
+  "/pricing",
+  "/generative-engine-optimization",
+  "/answer-engine-optimization",
+  "/generative-engine-optimization-github",
+  "/generative-engine-optimization-pdf",
+  "/generative-engine-optimization-course",
+  "/generative-engine-optimization-tool",
+  "/generative-engine-optimization-strategies",
+  "/generative-engine-optimization-paper",
+  "/generative-engine-optimization-book",
+  "/generative-engine-optimization-examples",
+  "/answer-engine-optimization-examples",
+  "/answer-engine-optimization-course",
+  "/answer-engine-optimization-vs-generative-engine-optimization",
+  "/answer-engine-optimization-hubspot",
+  "/answer-engine-optimization-tutorial",
+  "/answer-engine-optimization-tools",
+  "/ai-answer-engine-optimization",
+  "/answer-engine-optimization-jobs",
+  "/resources/*",
+  "/privacy",
+  "/terms",
+  "/checkout/done",
+  "/sitemap.xml",
+  "/robots.txt",
+  "/api/*"
+]
