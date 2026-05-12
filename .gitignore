@@ -1,0 +1,9 @@
+node_modules/
+.wrangler/
+.env
+.env.*
+*.log
+.pages-dev.*
+playwright*.png
+playwright-report/
+test-results/

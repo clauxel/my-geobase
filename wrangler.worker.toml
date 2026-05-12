@@ -1,0 +1,28 @@
+name = "my-veovido"
+main = "worker/index.js"
+compatibility_date = "2026-05-12"
+workers_dev = true
+routes = [
+  { pattern = "veovido.space/*", zone_name = "veovido.space" },
+  { pattern = "www.veovido.space/*", zone_name = "veovido.space" }
+]
+
+[vars]
+APP_ORIGIN = "https://veovido.space"
+CREEM_API_BASE = "https://api.creem.io"
+CREEM_ENV = "live"
+
+[[kv_namespaces]]
+binding = "ANALYTICS_KV"
+id = "0e0b7b760a9b44a8b2de4dbab9398e6f"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = [
+  "/api/*",
+  "/sitemap.xml",
+  "/robots.txt",
+  "/BingSiteAuth.xml"
+]

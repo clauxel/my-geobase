@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#fffaf1">
+  <title>Veo 3 Video Generator for Selfie-to-Movie AI Shorts</title>
+  <meta name="description" content="VeoVido is a Veo 3 video generator workflow that turns one selfie into cinematic AI short videos with templates, dialogue, voice, friend co-stars, and social exports.">
+  <meta name="keywords" content="Veo 3 video generator, veo, AI video generator, VeoVido">
+  <link rel="canonical" href="https://veovido.space/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Veo 3 Video Generator for Selfie-to-Movie AI Shorts">
+  <meta property="og:description" content="VeoVido is a Veo 3 video generator workflow that turns one selfie into cinematic AI short videos with templates, dialogue, voice, friend co-stars, and social exports.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://veovido.space/">
+  <meta property="og:site_name" content="VeoVido">
+  <meta property="og:image" content="https://veovido.space/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Veo 3 Video Generator for Selfie-to-Movie AI Shorts">
+  <meta name="twitter:description" content="VeoVido is a Veo 3 video generator workflow that turns one selfie into cinematic AI short videos with templates, dialogue, voice, friend co-stars, and social exports.">
+  <meta name="twitter:image" content="https://veovido.space/assets/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"VeoVido","applicationCategory":"MultimediaApplication","operatingSystem":"Web","url":"https://veovido.space","description":"VeoVido is a selfie-to-cinematic-video SaaS for creators searching for a Veo 3 video generator workflow.","offers":[{"@type":"Offer","name":"Star","price":"9","priceCurrency":"USD"},{"@type":"Offer","name":"Director","price":"29","priceCurrency":"USD"},{"@type":"Offer","name":"Studio","price":"79","priceCurrency":"USD"}],"featureList":["Selfie character integration","100+ cinematic templates","Dialogue and plot control","AI voice clone workflow","Friend co-star mode","Social export presets"]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is VeoVido?","acceptedAnswer":{"@type":"Answer","text":"VeoVido is a web SaaS for turning a selfie, role, and scene template into a cinematic short video workflow."}},{"@type":"Question","name":"Which plan is selected by default?","acceptedAnswer":{"@type":"Answer","text":"Director annual is selected by default because repeat creators usually need 10 videos per month, voice cloning, and 4K export."}}]}]}</script>
+  <script defer src="/assets/analytics.js"></script>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation" data-analytics-section="nav">
+    <a class="brand" href="/">
+      <span class="brand-mark">V</span>
+      <span>VeoVido</span>
+    </a>
+    <div class="nav-links">
+      <a href="/#templates">Templates</a>
+      <a href="/#workflow">Workflow</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/veo-3-ai-video/">Veo 3 AI video</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn" href="/google-veo-3-video-generator/">Guide</a>
+      <a class="btn primary" href="#pricing" data-launch-open data-launch-source="nav_cta" data-launch-plan="director" data-launch-billing="annual" data-analytics-click="nav_checkout" data-analytics-cta="true">Choose Director annual</a>
+    </div>
+  </nav>
+  <main>
+      <section class="hero" id="studio" data-analytics-section="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Veo 3 video generator - selfie to cinema</p>
+          <h1>Veo 3 video generator for your movie moment.</h1>
+          <p class="lead">Upload one selfie, choose the scene, add your line, and turn it into a cinematic 15 to 60 second AI short with voice, co-stars, and social-ready exports.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#pricing" data-launch-open data-launch-source="hero_primary" data-launch-plan="director" data-launch-billing="annual" data-analytics-click="hero_checkout" data-analytics-cta="true">Choose Director annual</a>
+            <a class="btn" href="#templates" data-analytics-click="hero_templates">Explore templates</a>
+          </div>
+          <div class="trust-row">
+            <div class="trust-item"><div class="trust-value">100+</div><div class="trust-label">cinematic scene templates</div></div>
+            <div class="trust-item"><div class="trust-value">15-60s</div><div class="trust-label">social-ready short films</div></div>
+            <div class="trust-item"><div class="trust-value">50%</div><div class="trust-label">annual Director savings</div></div>
+          </div>
+        </div>
+        <div class="studio" aria-label="VeoVido selfie movie studio">
+          <div class="studio-top"><div class="dots"><span></span><span></span><span></span></div><strong>Movie moment builder</strong><span>Live preview</span></div>
+          <div class="studio-body">
+            <div class="preview-wrap">
+              <img src="/assets/veovido-cinematic-preview.png" width="1200" height="760" alt="VeoVido preview showing a selfie becoming the hero of a cinematic AI short">
+              <div class="preview-badge" id="scene-status">Selfie ready - sci-fi epic selected</div>
+            </div>
+            <label class="upload-box">
+              <input id="selfie-input" type="file" accept="image/*" data-analytics-click="selfie_upload">
+              <span><span class="upload-title" id="upload-title">Upload your selfie</span><span class="upload-note">One clear face photo is enough to plan the clip.</span></span>
+            </label>
+            <div class="studio-grid">
+              <label class="field"><span>Genre</span><select id="genre-select"><option>Sci-fi epic</option><option>Hollywood action</option><option>Romantic drama</option><option>Horror thriller</option><option>Wuxia fantasy</option><option>Sports highlight</option></select></label>
+              <label class="field"><span>Export</span><select><option>9:16 TikTok / Reels</option><option>16:9 YouTube</option><option>1:1 social square</option></select></label>
+              <label class="field" style="grid-column:1/-1"><span>Your line</span><textarea id="line-input">I was not written into the movie. I rewrote the scene.</textarea></label>
+            </div>
+            <button class="btn coral" data-launch-open data-launch-source="studio_builder" data-launch-plan="director" data-launch-billing="annual" data-analytics-click="studio_generate" data-analytics-cta="true">Generate my movie moment</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features" data-analytics-section="features">
+        <div class="container">
+          <div class="section-head center">
+            <p class="kicker">Built for conversion</p>
+            <h2>A focused Veo 3 video generator workflow, not another blank prompt box</h2>
+            <p class="section-desc">Every control exists to move a creator from curiosity to a finished clip they can picture, approve, buy, and share.</p>
+          </div>
+          <div class="grid-3">
+            <article class="card"><div class="icon-pill">1</div><h3>Face-fit scene engine</h3><p>Upload one selfie and keep the character consistent across film-style shots, lighting, motion, and closeups.</p></article><article class="card"><div class="icon-pill">2</div><h3>100+ genre templates</h3><p>Action, romance, sci-fi, horror, wuxia, sports highlights, fantasy trailers, travel reels, and creator intros.</p></article><article class="card"><div class="icon-pill">3</div><h3>Script and role control</h3><p>Pick your line, opponent, co-star, ending, camera mood, and the 15 to 60 second story shape.</p></article><article class="card"><div class="icon-pill">4</div><h3>Voice workflow</h3><p>Record a short sample for a matching voice direction or choose an AI voice actor for safer public exports.</p></article><article class="card"><div class="icon-pill">5</div><h3>Friend co-star mode</h3><p>Invite a friend to upload a selfie and appear in the same short with matched scene logic.</p></article><article class="card"><div class="icon-pill">6</div><h3>Social export presets</h3><p>TikTok, Instagram Reels, YouTube Shorts, and WeChat-friendly formats with caption starters.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="templates" data-analytics-section="templates">
+        <div class="container">
+          <div class="section-head">
+            <p class="kicker">Template library</p>
+            <h2>Pick a genre people instantly understand</h2>
+            <p class="section-desc">The scene library turns vague AI video interest into concrete desire: this role, this shot, this caption, this export.</p>
+          </div>
+          <div class="grid-4"><article class="card template-card"><h3>Hollywood chase</h3><p>Explosive street escape, dramatic light, trailer-style pacing.</p></article><article class="card template-card"><h3>Romantic airport ending</h3><p>Soft lens, emotional line, final boarding call.</p></article><article class="card template-card"><h3>Sci-fi commander</h3><p>Neon bridge, planetary threat, heroic closeup.</p></article><article class="card template-card"><h3>Horror hallway</h3><p>One-take suspense, flickering light, whisper reveal.</p></article><article class="card template-card"><h3>Wuxia moon duel</h3><p>Ancient roofline, silk motion, sword-light finish.</p></article><article class="card template-card"><h3>Sports final shot</h3><p>Stadium roar, slow-motion highlight, victory cut.</p></article><article class="card template-card"><h3>Luxury travel reel</h3><p>Golden-hour arrival, cinematic car door, skyline reveal.</p></article><article class="card template-card"><h3>Friend cameo comedy</h3><p>Two-person setup, reaction beat, punchline ending.</p></article></div>
+        </div>
+      </section>
+
+      <section class="section" id="workflow" data-analytics-section="workflow">
+        <div class="container">
+          <div class="section-head center">
+            <p class="kicker">Veo 3 Flow</p>
+            <h2>From selfie to shareable film in one guided path</h2>
+          </div>
+          <div class="grid-4"><article class="card dark"><div class="icon-pill">1</div><h3>Upload</h3><p>Add one clear selfie and choose whether the clip is solo or co-star mode.</p></article><article class="card dark"><div class="icon-pill">2</div><h3>Direct</h3><p>Pick genre, role, dialogue, opponent, mood, and export ratio.</p></article><article class="card dark"><div class="icon-pill">3</div><h3>Preview</h3><p>Review likeness, prompt safety, caption, and voice settings before checkout.</p></article><article class="card dark"><div class="icon-pill">4</div><h3>Share</h3><p>Export a clean HD or 4K short for the social channel you choose.</p></article></div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section pricing-section" data-analytics-section="pricing">
+    <div class="container">
+      <div class="section-head center">
+        <p class="kicker">Pricing</p>
+        <h2>Start with Director annual, save 50%, and keep the page open during payment</h2>
+        <p class="section-desc">The middle plan is selected because most creators need more than one generation, voice, and 4K export after the first successful clip.</p>
+      </div>
+      <div class="pricing-toolbar">
+        <div class="billing-toggle" role="tablist" aria-label="Choose monthly or yearly billing">
+          <button type="button" class="billing-chip" data-billing-option="monthly" aria-pressed="false">Monthly</button>
+          <button type="button" class="billing-chip is-active" data-billing-option="annual" aria-pressed="true">Annual - 50% off</button>
+        </div>
+      </div>
+      <div class="pricing-grid">
+        <article class="pricing-card " data-pricing-plan="star">
+    
+    <div class="pricing-name">Star</div>
+    <p class="pricing-desc">Single generation for creators who want one polished HD clip without watermark.</p>
+    <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount" data-plan-price-amount="star">9</span><span class="price-period" data-plan-price-period="star">/ generation</span></div>
+    <p class="pricing-note" data-plan-price-note="star">$9 charged once for one HD no-watermark short.</p>
+    <ul class="pricing-features"><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>1 finished HD video</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>No watermark</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>15 to 60 second export</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Basic social caption</li></ul>
+    <button type="button" class="btn btn-pricing " data-pricing-action="star" data-pricing-source="pricing_star" data-analytics-click="pricing_star" data-analytics-cta="true">Checkout Star</button>
+  </article>
+        <article class="pricing-card featured" data-pricing-plan="director">
+    <div class="pricing-badge">Default choice</div>
+    <div class="pricing-name">Director</div>
+    <p class="pricing-desc">The default creator plan for repeat movie moments, voice, and higher-quality exports.</p>
+    <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount" data-plan-price-amount="director">14.50</span><span class="price-period" data-plan-price-period="director">/ mo billed yearly</span></div>
+    <p class="pricing-note" data-plan-price-note="director">$174 charged yearly. Save 50% on annual billing.</p>
+    <ul class="pricing-features"><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>10 videos per month</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Voice clone workflow</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>4K export</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Priority render queue</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Friend invite preview</li></ul>
+    <button type="button" class="btn btn-pricing coral" data-pricing-action="director" data-pricing-source="pricing_director" data-analytics-click="pricing_director" data-analytics-cta="true">Checkout Director annual</button>
+  </article>
+        <article class="pricing-card " data-pricing-plan="studio">
+    
+    <div class="pricing-name">Studio</div>
+    <p class="pricing-desc">For teams, creators, and agencies that need high volume, co-stars, and API access.</p>
+    <div class="pricing-price"><span class="price-currency">$</span><span class="price-amount" data-plan-price-amount="studio">39.50</span><span class="price-period" data-plan-price-period="studio">/ mo billed yearly</span></div>
+    <p class="pricing-note" data-plan-price-note="studio">$474 charged yearly. Save 50% on annual billing.</p>
+    <ul class="pricing-features"><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Unlimited videos</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Friend co-star mode</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>API access</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Team scene library</li><li class="pricing-feature"><span class="pricing-feature-icon">✓</span>Commercial workflow support</li></ul>
+    <button type="button" class="btn btn-pricing " data-pricing-action="studio" data-pricing-source="pricing_studio" data-analytics-click="pricing_studio" data-analytics-cta="true">Checkout Studio annual</button>
+  </article>
+      </div>
+    </div>
+  </section>
+
+      <section class="section alt" id="guides" data-analytics-section="guides">
+        <div class="container">
+          <div class="section-head">
+            <p class="kicker">Useful guides</p>
+            <h2>Pages for the real questions people ask before they buy</h2>
+          </div>
+          <div class="grid-3"><a class="card" href="/veo-ai-video-generator/"><h3>Veo AI video generator</h3><p>A practical guide to using a Veo AI video generator workflow for cinematic selfie videos, scene templates, voice, friends, and social exports.</p></a><a class="card" href="/veo-3-google-ai/"><h3>Veo 3 Google AI</h3><p>Understand the creative workflow around Veo 3 Google AI and how a selfie-led SaaS flow can make cinematic clips easier to plan and share.</p></a><a class="card" href="/veo-3-ai-video/"><h3>Veo 3 AI video</h3><p>Plan a Veo 3 AI video workflow from selfie upload to cinematic scene selection, dialogue, voice, export, and sharing.</p></a><a class="card" href="/veo-3-ai-free-unlimited/"><h3>Veo 3 AI free unlimited</h3><p>A clear explanation of free-unlimited Veo 3 AI claims, what costs money in video generation, and how to plan an affordable workflow.</p></a><a class="card" href="/veo-3-flow/"><h3>Veo 3 Flow</h3><p>Build a practical Veo 3 Flow for selfie-led AI films: upload, choose genre, set role, add voice, invite friends, and export.</p></a><a class="card" href="/gemini-veo-3-ai/"><h3>Gemini Veo 3 AI</h3><p>How Gemini Veo 3 AI interest maps to a creator workflow for short cinematic videos, with guidance on prompts, roles, voices, and exports.</p></a><a class="card" href="/google-ai-video-generator/"><h3>Google AI video generator</h3><p>Compare what creators expect from a Google AI video generator with a selfie-to-movie SaaS workflow built for conversion and sharing.</p></a><a class="card" href="/gemini-veo-3-free/"><h3>Gemini Veo 3 free</h3><p>What to consider when looking for Gemini Veo 3 free access, including trial limits, export quality, voice, rights, and paid workflows.</p></a><a class="card" href="/veo-ai/"><h3>Veo AI</h3><p>A useful overview of Veo AI search intent and how creators can turn AI video interest into cinematic clips with a guided SaaS flow.</p></a></div>
+        </div>
+      </section>
+
+      <section class="section" id="faq" data-analytics-section="faq">
+        <div class="container">
+          <div class="section-head center"><p class="kicker">Questions</p><h2>Clear answers before checkout</h2></div>
+          <div class="faq-list"><article class="faq-item open"><button class="faq-question" type="button" aria-expanded="true">Is VeoVido a generic video prompt box?<span>+</span></button><div class="faq-answer">No. The first screen is built around a specific creator outcome: upload a selfie and become the lead character in a cinematic short.</div></article><article class="faq-item "><button class="faq-question" type="button" aria-expanded="false">Why is Director annual selected first?<span>+</span></button><div class="faq-answer">Director annual gives repeat creators the best value: 10 videos per month, voice cloning, 4K export, and 50% annual savings.</div></article><article class="faq-item "><button class="faq-question" type="button" aria-expanded="false">Can I use a friend or celebrity face?<span>+</span></button><div class="faq-answer">You should only upload faces, voices, and likenesses you have permission to use. VeoVido is designed for consent-based creative use.</div></article><article class="faq-item "><button class="faq-question" type="button" aria-expanded="false">Does VeoVido claim free unlimited Veo 3 AI generation?<span>+</span></button><div class="faq-answer">No. High-quality video, storage, voice, and 4K output have real cost. The pricing is shown clearly before checkout.</div></article></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-band">
+            <div><h2>Make the first clip feel inevitable.</h2><p>Director annual is selected by default because the first successful video usually leads to a series: new scenes, friends, voice, 4K exports, and faster social production.</p></div>
+            <a class="btn coral" href="#pricing" data-launch-open data-launch-source="bottom_cta" data-launch-plan="director" data-launch-billing="annual" data-analytics-click="bottom_checkout" data-analytics-cta="true">Checkout Director annual</a>
+          </div>
+        </div>
+      </section>
+      <div class="launch-modal-overlay" id="launch-modal" hidden>
+    <div class="launch-modal-shell" role="dialog" aria-modal="true" aria-labelledby="launch-modal-title">
+      <button type="button" class="launch-modal-close" data-launch-close aria-label="Close checkout">x</button>
+      <div class="launch-modal-step" data-launch-step="plans">
+        <p class="launch-modal-eyebrow">Choose your plan</p>
+        <h2 class="launch-modal-title" id="launch-modal-title">Confirm the clip volume before secure checkout</h2>
+        <p class="launch-modal-desc">Annual billing is selected by default and makes Director 50% cheaper. Payment opens in a centered Creem popup while this page stays in place behind it.</p>
+        <div class="billing-toggle launch-billing-toggle" role="tablist" aria-label="Choose billing in modal">
+          <button type="button" class="billing-chip" data-billing-option="monthly" aria-pressed="false">Monthly</button>
+          <button type="button" class="billing-chip is-active" data-billing-option="annual" aria-pressed="true">Yearly 50% off</button>
+        </div>
+        <div class="launch-plan-grid">
+          <button type="button" class="launch-plan-card " data-modal-plan="star">
+    <span class="launch-plan-chip">Star</span>
+    <div class="launch-plan-name">Star</div>
+    <p class="launch-plan-desc">One polished HD short for a single movie moment.</p>
+    <div class="launch-plan-price"><span class="price-currency">$</span><span class="launch-plan-price-amount" data-modal-price-amount="star">9</span><span class="launch-plan-price-period" data-modal-price-period="star">/ generation</span></div>
+    <p class="launch-plan-meta" data-modal-price-note="star">$9 charged once.</p>
+    <div class="launch-plan-features"><div class="launch-plan-feature">1 HD export</div><div class="launch-plan-feature">No watermark</div><div class="launch-plan-feature">Social caption starter</div></div>
+  </button>
+          <button type="button" class="launch-plan-card is-featured is-selected" data-modal-plan="director">
+    <span class="launch-plan-chip">Default choice</span>
+    <div class="launch-plan-name">Director</div>
+    <p class="launch-plan-desc">The recommended plan for regular creators.</p>
+    <div class="launch-plan-price"><span class="price-currency">$</span><span class="launch-plan-price-amount" data-modal-price-amount="director">14.50</span><span class="launch-plan-price-period" data-modal-price-period="director">/ mo billed yearly</span></div>
+    <p class="launch-plan-meta" data-modal-price-note="director">$174 charged yearly.</p>
+    <div class="launch-plan-features"><div class="launch-plan-feature">10 videos per month</div><div class="launch-plan-feature">Voice clone workflow</div><div class="launch-plan-feature">4K export</div></div>
+  </button>
+          <button type="button" class="launch-plan-card " data-modal-plan="studio">
+    <span class="launch-plan-chip">Studio</span>
+    <div class="launch-plan-name">Studio</div>
+    <p class="launch-plan-desc">High-volume creation with co-stars and API.</p>
+    <div class="launch-plan-price"><span class="price-currency">$</span><span class="launch-plan-price-amount" data-modal-price-amount="studio">39.50</span><span class="launch-plan-price-period" data-modal-price-period="studio">/ mo billed yearly</span></div>
+    <p class="launch-plan-meta" data-modal-price-note="studio">$474 charged yearly.</p>
+    <div class="launch-plan-features"><div class="launch-plan-feature">Unlimited videos</div><div class="launch-plan-feature">Friend co-star mode</div><div class="launch-plan-feature">API access</div></div>
+  </button>
+        </div>
+        <div class="launch-modal-footer">
+          <div><div class="launch-selection-label">Selected plan</div><div class="launch-selection-value" data-selection-title>Director - Yearly</div><div class="launch-selection-note" data-selection-note>$174 charged yearly. Equivalent to $14.50 per month.</div></div>
+          <div class="launch-footer-actions"><button type="button" class="launch-secondary-button" data-launch-close>Not now</button><button type="button" class="launch-primary-button" data-launch-continue data-analytics-click="launch_modal_continue" data-analytics-cta="true">Continue to Checkout</button></div>
+        </div>
+      </div>
+      <div class="launch-modal-step" data-launch-step="payment" hidden>
+        <button type="button" class="launch-back-link" data-launch-back>&lt; Back to plans</button>
+        <p class="launch-modal-eyebrow">Secure checkout</p>
+        <h2 class="launch-modal-title">Finish your VeoVido purchase</h2>
+        <p class="launch-modal-desc">A Creem payment popup opens centered on your screen. The product page stays open and blurred behind this step.</p>
+        <div class="payment-summary-card"><div class="payment-summary-grid">
+          <div><div class="payment-summary-label">Plan</div><div class="payment-summary-value" data-payment-plan>Director - Yearly</div></div>
+          <div><div class="payment-summary-label">Billing</div><div class="payment-summary-value" data-payment-billing>$174 charged yearly</div></div>
+          <div><div class="payment-summary-label">Discount</div><div class="payment-summary-value" data-payment-discount>50% off yearly pricing</div></div>
+          <div><div class="payment-summary-label">Provider</div><div class="payment-summary-value" data-payment-provider>Secure Creem popup</div></div>
+        </div></div>
+        <div class="payment-status" data-payment-status>Preparing your checkout session.</div>
+        <div class="payment-actions"><a href="#" class="launch-primary-button launch-link-button" data-payment-link target="veovido-creem-checkout" rel="noopener" hidden data-analytics-click="reopen_payment_popup" data-analytics-cta="true">Open secure payment</a><button type="button" class="launch-secondary-button" data-launch-close>Continue later</button></div>
+      </div>
+    </div>
+  </div>
+      <script>
+        document.querySelectorAll('.faq-question').forEach(function (button) {
+          button.addEventListener('click', function () {
+            var item = button.closest('.faq-item')
+            var open = item.classList.contains('open')
+            document.querySelectorAll('.faq-item.open').forEach(function (node) {
+              node.classList.remove('open')
+              node.querySelector('.faq-question').setAttribute('aria-expanded', 'false')
+            })
+            if (!open) {
+              item.classList.add('open')
+              button.setAttribute('aria-expanded', 'true')
+            }
+          })
+        })
+        var input = document.getElementById('selfie-input')
+        var title = document.getElementById('upload-title')
+        var genre = document.getElementById('genre-select')
+        var status = document.getElementById('scene-status')
+        if (input) input.addEventListener('change', function () {
+          if (input.files && input.files[0]) {
+            title.textContent = 'Selfie selected'
+            status.textContent = 'Selfie ready - ' + genre.value.toLowerCase() + ' selected'
+          }
+        })
+        if (genre) genre.addEventListener('change', function () {
+          status.textContent = 'Selfie ready - ' + genre.value.toLowerCase() + ' selected'
+        })
+      </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="/" style="color:white"><span class="brand-mark">V</span><span>VeoVido</span></a>
+        <p>Selfie-to-cinema SaaS for creators who want a clear Veo 3 video generator workflow, cinematic templates, voice options, co-star scenes, and social-ready exports.</p>
+        <p><strong>Markets:</strong> United States, global English market, and Southeast Asia.</p>
+        <p><a href="mailto:support@aigeamy.com">support@aigeamy.com</a></p>
+      </div>
+      <div><div class="footer-title">Product</div><div class="footer-links">
+        <a href="/#studio">Selfie studio</a>
+        <a href="/#templates">Scene templates</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/veo-3-flow/">Veo 3 Flow</a>
+      </div></div>
+      <div><div class="footer-title">Guides</div><div class="footer-links"><a href="/veo-ai-video-generator/">Veo AI video generator</a><a href="/veo-3-google-ai/">Veo 3 Google AI</a><a href="/veo-3-ai-video/">Veo 3 AI video</a><a href="/veo-3-ai-free-unlimited/">Veo 3 AI free unlimited</a><a href="/veo-3-flow/">Veo 3 Flow</a><a href="/gemini-veo-3-ai/">Gemini Veo 3 AI</a><a href="/google-ai-video-generator/">Google AI video generator</a><a href="/gemini-veo-3-free/">Gemini Veo 3 free</a><a href="/veo-ai/">Veo AI</a><a href="/veo-price/">Veo price</a></div></div>
+      <div><div class="footer-title">Company</div><div class="footer-links">
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <a href="mailto:support@aigeamy.com">Support</a>
+      </div></div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright 2026 VeoVido. Independent SaaS product. Not affiliated with Google or any third-party model provider.</span>
+      <span>Veo 3 video generator workflow for creators.</span>
+    </div>
+  </footer>
+  <script defer src="/assets/launch-flow.js?v=20260512"></script>
+</body>
+</html>

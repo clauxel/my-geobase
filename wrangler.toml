@@ -1,0 +1,12 @@
+name = "my-veovido"
+compatibility_date = "2026-05-12"
+pages_build_output_dir = "public"
+
+[vars]
+APP_ORIGIN = "https://veovido.space"
+CREEM_API_BASE = "https://api.creem.io"
+CREEM_ENV = "live"
+
+[[kv_namespaces]]
+binding = "ANALYTICS_KV"
+id = "0e0b7b760a9b44a8b2de4dbab9398e6f"
