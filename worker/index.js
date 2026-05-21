@@ -7,9 +7,11 @@ import {
   handleSitemap,
   jsonResponse,
   keywordPaths,
+  planCatalog,
   securityHeaders,
   withSecurityHeaders,
 } from '../functions/_shared/veovido.js'
+import { handleNowPaymentsCheckout } from './nowpayments.js'
 
 const staticAssetPaths = new Set(['/', ...keywordPaths, '/privacy', '/terms'])
 const CANONICAL_HOSTS = new Set(['veovido.space', 'www.veovido.space'])
@@ -25,6 +27,14 @@ function maybeRedirectToHttps(requestUrl, request) {
   return null
 }
 
+function noIndexNotFoundResponse(request) {
+  const headers = securityHeaders(request)
+  headers.set('Content-Type', 'text/html; charset=utf-8')
+  headers.set('Cache-Control', 'no-store')
+  headers.set('X-Robots-Tag', 'noindex, nofollow')
+  return new Response('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Page not found</title></head><body><main><h1>Page not found</h1><p>This URL is not a public page for this product.</p></main></body></html>', { status: 404, headers })
+}
+
 async function fetchAsset(request, env) {
   if (!env?.ASSETS?.fetch) {
     return new Response('Cloudflare asset binding is unavailable.', {
@@ -35,6 +45,8 @@ async function fetchAsset(request, env) {
 
   const requestUrl = new URL(request.url)
   const normalizedPath = requestUrl.pathname.replace(/\/+$/, '') || '/'
+
+  if (!staticAssetPaths.has(normalizedPath) && !/\.[a-z0-9]+$/i.test(normalizedPath)) return noIndexNotFoundResponse(request)
 
   if (staticAssetPaths.has(normalizedPath)) {
     const assetUrl = new URL(request.url)
@@ -51,6 +63,15 @@ async function handleRequest(request, env) {
 
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: securityHeaders(request) })
   if (requestUrl.pathname === '/api/runtime') return handleRuntime(request)
+  if (requestUrl.pathname === '/api/nowpayments-checkout') {
+    return handleNowPaymentsCheckout(request, env, {
+      plans: planCatalog,
+      defaultPlanId: 'director',
+      siteName: 'VeoVido',
+      siteKey: 'veovido',
+      annualDiscountMultiplier: 0.5,
+    })
+  }
   if (requestUrl.pathname === '/api/launch-checkout' || requestUrl.pathname === '/api/checkout') {
     return handleLaunchCheckout(request, env)
   }
