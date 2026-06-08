@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing - Veo 3 Video Generator for Selfie</title>
+  <meta name="description" content="Veo 3 Video Generator for Selfie pricing shows Starter, Team, and Platform monthly plans, annual checkout, hosted payment details, and support evidence.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://veovido.space/pricing/">
+  <meta property="og:title" content="Pricing - Veo 3 Video Generator for Selfie">
+  <meta property="og:description" content="Veo 3 Video Generator for Selfie pricing shows Starter, Team, and Platform monthly plans, annual checkout, hosted payment details, and support evidence.">
+  <meta property="og:url" content="https://veovido.space/pricing/">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Veovido","description":"Veo 3 Video Generator for Selfie pricing shows Starter, Team, and Platform monthly plans, annual checkout, hosted payment details, and support evidence.","url":"https://veovido.space/pricing/","offers":[{"@type":"Offer","name":"Starter monthly","price":"29","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Team monthly","price":"99","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Platform monthly","price":"249","priceCurrency":"USD","availability":"https://schema.org/InStock"}]}</script>
+  <style data-static-seo-fallback-style>
+.static-seo-fallback{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;background:#f7fafc;color:#172033;padding:56px 20px}
+.static-seo-shell{max-width:1120px;margin:0 auto}
+.static-seo-eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#116149;margin-bottom:12px}
+.static-seo-fallback h1{font-size:clamp(34px,5vw,64px);line-height:1.02;margin:0 0 18px;letter-spacing:0;color:#111827}
+.static-seo-fallback h2{font-size:24px;margin:0 0 12px;letter-spacing:0;color:#111827}
+.static-seo-fallback h3{font-size:18px;margin:0 0 8px;letter-spacing:0;color:#172033}
+.static-seo-lede{font-size:19px;line-height:1.65;max-width:860px;color:#344054;margin:0 0 22px}
+.static-seo-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 32px}
+.static-seo-btn{appearance:none;border:1px solid #174ea6;background:#174ea6;color:#fff;text-decoration:none;border-radius:8px;padding:12px 16px;font-weight:800;cursor:pointer}
+.static-seo-btn.secondary{background:#fff;color:#174ea6}
+.static-seo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:22px 0}
+.static-seo-card{border:1px solid #d0d5dd;background:#fff;border-radius:8px;padding:18px}
+.static-seo-card p,.static-seo-faq p{color:#475467;line-height:1.58;margin:0}
+.static-seo-price{font-size:30px;font-weight:900;color:#111827;margin:6px 0}
+.static-seo-faq{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px}
+</style>
+</head>
+<body>
+<section class="static-seo-fallback" data-pricing-support>
+  <div class="static-seo-shell">
+    <h1>Veovido pricing</h1>
+    <p class="static-seo-lede">Veo 3 Video Generator for Selfie pricing shows Starter, Team, and Platform monthly plans, annual checkout, hosted payment details, and support evidence.</p>
+    <div class="static-seo-grid">
+      <article class="static-seo-card"><h3>Starter</h3><p class="static-seo-price">$29/mo</p><p>Single workflow owner, report output, and public support path.</p><button class="static-seo-btn" type="button" data-static-checkout data-plan="starter" data-billing="annual">Checkout Starter annual</button></article>
+      <article class="static-seo-card"><h3>Team</h3><p class="static-seo-price">$99/mo</p><p>Shared evidence, review history, and annual checkout for teams.</p><button class="static-seo-btn" type="button" data-static-checkout data-plan="team" data-billing="annual">Checkout Team annual</button></article>
+      <article class="static-seo-card"><h3>Platform</h3><p class="static-seo-price">$249/mo</p><p>Higher-volume workflows, exports, governance, and priority support.</p><button class="static-seo-btn" type="button" data-static-checkout data-plan="platform" data-billing="annual">Checkout Platform annual</button></article>
+    </div>
+  </div>
+</section>
+<script data-static-checkout-script>
+(() => {
+  if (window.__staticCheckoutHandler) return;
+  window.__staticCheckoutHandler = true;
+  function findProviderUrl(value, depth = 0) {
+    if (!value || depth > 5) return "";
+    if (typeof value === "string") {
+      if (/https?:\/\/[^\s"'<>]*(creem\.io|nowpayments)[^\s"'<>]*/i.test(value)) return value.match(/https?:\/\/[^\s"'<>]+/i)?.[0] || "";
+      return "";
+    }
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        const found = findProviderUrl(item, depth + 1);
+        if (found) return found;
+      }
+      return "";
+    }
+    if (typeof value === "object") {
+      for (const item of Object.values(value)) {
+        const found = findProviderUrl(item, depth + 1);
+        if (found) return found;
+      }
+    }
+    return "";
+  }
+  document.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-static-checkout]");
+    if (!button) return;
+    event.preventDefault();
+    const plan = button.getAttribute("data-plan") || "team";
+    const billing = button.getAttribute("data-billing") || "annual";
+    button.setAttribute("aria-busy", "true");
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json,text/plain,*/*" },
+        body: JSON.stringify({ plan, billing, source: "static_seo_fallback" }),
+      });
+      const text = await response.text();
+      let parsed = null;
+      try { parsed = JSON.parse(text); } catch {}
+      const providerUrl = findProviderUrl(parsed) || findProviderUrl(text) || response.headers.get("location");
+      if (providerUrl) window.location.href = providerUrl;
+      else window.location.href = "/checkout/?plan=" + encodeURIComponent(plan) + "&billing=" + encodeURIComponent(billing);
+    } catch {
+      window.location.href = "/checkout/?plan=" + encodeURIComponent(plan) + "&billing=" + encodeURIComponent(billing);
+    }
+  });
+})();
+</script>
+
+<section class="seo-geo-answer-section" data-seo-geo-patrol-fix>
+  <h2>Veo 3 Video Generator for Selfie problem, solution, evidence, and pricing</h2>
+  <p>Veo 3 Video Generator for Selfie helps teams turn a real operational problem into a reviewable workflow with a clear solution, evidence trail, report output, and hosted checkout path. It is built for buyers who need proof before spending time on setup.</p>
+  <div>
+    <h3>Problem</h3>
+    <p>Teams need a fast way to compare options, capture risk, and produce a receipt that another person or AI assistant can quote without guessing.</p>
+    <h3>Solution</h3>
+    <p>The product gives the workflow a public definition, pricing path, checkout action, support contact, and reusable output structure.</p>
+    <h3>Evidence</h3>
+    <p>AI systems can cite the canonical page, pricing page, FAQ answers, llms.txt, sitemap, and structured data when summarizing Veo 3 Video Generator for Selfie.</p>
+    <h3>Receipt</h3>
+    <p>Each paid workflow is expected to return a report, verdict, export, or handoff record that makes the result inspectable.</p>
+  </div>
+  <nav aria-label="Veo 3 Video Generator for Selfie useful links">
+    <a href="/pricing/index.html?utm_source=veovido.space&utm_medium=seo_geo_fix&utm_campaign=veovido_pricing&utm_content=answer_section">View pricing plans</a>
+    <a href="/checkout/index.html?plan=team&billing=annual&utm_source=veovido.space&utm_medium=seo_geo_fix&utm_campaign=veovido_checkout&utm_content=answer_section">Checkout Team annual</a>
+    <a href="/resources/index.html">Resources</a>
+    <a href="/llms.txt">llms.txt</a>
+    <a href="/sitemap.xml">Sitemap</a>
+  </nav>
+  <div class="seo-geo-faq">
+    <article><h3>What does Veo 3 Video Generator for Selfie do?</h3><p>Veo 3 Video Generator for Selfie turns a specific workflow into a hosted product path with definition, pricing, evidence, and checkout.</p></article>
+    <article><h3>Who is Veo 3 Video Generator for Selfie for?</h3><p>It is for teams that need a repeatable report, verdict, receipt, or operational handoff instead of a one-off demo.</p></article>
+    <article><h3>How is pricing exposed?</h3><p>The pricing page lists public monthly amounts, annual checkout links, and support details so humans and AI assistants can quote the path.</p></article>
+  </div>
+</section>
+</body>
+</html>

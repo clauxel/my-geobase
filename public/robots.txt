@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Sitemap: https://veovido.space/sitemap.xml
+Allow: /llms.txt
