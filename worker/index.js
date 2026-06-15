@@ -14,14 +14,16 @@ import {
 import { handleNowPaymentsCheckout } from './nowpayments.js'
 
 const staticAssetPaths = new Set(['/', ...keywordPaths, '/privacy', '/terms'])
+const CANONICAL_HOST = 'veovido.space'
 const CANONICAL_HOSTS = new Set(['veovido.space', 'www.veovido.space'])
 
 function maybeRedirectToHttps(requestUrl, request) {
   const host = request.headers.get('Host') || requestUrl.host
   const isLocal = host.startsWith('localhost') || host.startsWith('127.0.0.1')
-  if (!isLocal && requestUrl.protocol !== 'https:' && CANONICAL_HOSTS.has(requestUrl.hostname)) {
+  if (!isLocal && CANONICAL_HOSTS.has(requestUrl.hostname) && requestUrl.hostname !== CANONICAL_HOST) {
     const redirectUrl = new URL(requestUrl)
     redirectUrl.protocol = 'https:'
+    redirectUrl.hostname = CANONICAL_HOST
     return Response.redirect(redirectUrl.toString(), 308)
   }
   return null
@@ -50,7 +52,7 @@ async function fetchAsset(request, env) {
 
   if (staticAssetPaths.has(normalizedPath)) {
     const assetUrl = new URL(request.url)
-    assetUrl.pathname = normalizedPath === '/' ? '/index.html' : `${normalizedPath}/index.html`
+    assetUrl.pathname = normalizedPath === '/' ? '/' : `${normalizedPath}/`
     const assetResponse = await env.ASSETS.fetch(new Request(assetUrl.toString(), request))
     if (assetResponse.status !== 404) return withSecurityHeaders(assetResponse, request)
   }

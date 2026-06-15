@@ -13,9 +13,9 @@ const keywordPages = [
     keyword: 'Veo AI video generator',
     slug: 'veo-ai-video-generator',
     title: 'Veo AI Video Generator for Selfie-to-Movie Scenes',
-    description: 'A practical guide to using a Veo AI video generator workflow for cinematic selfie videos, scene templates, voice, friends, and social exports.',
+    description: 'A practical guide to using a Veo AI video generator workflow for cinematic selfie videos, scene formats, voice, friends, and social exports.',
     intent: 'People searching this phrase usually want to turn a prompt or image into a polished short video without learning a production pipeline.',
-    angle: 'VeoVido narrows that job to a conversion-ready flow: upload one selfie, pick a cinematic template, choose the role, and create a shareable 15 to 60 second movie clip.',
+    angle: 'VeoVido narrows that job to a conversion-ready flow: upload one selfie, pick a cinematic scene format, choose the role, and create a shareable 15 to 60 second movie clip.',
     caution: 'Always use faces, voices, and likenesses you have permission to use.',
   },
   {
@@ -24,7 +24,7 @@ const keywordPages = [
     title: 'Veo 3 Google AI: What Creators Need Before They Generate',
     description: 'Understand the creative workflow around Veo 3 Google AI and how a selfie-led SaaS flow can make cinematic clips easier to plan and share.',
     intent: 'The search intent is usually research-oriented: what Veo 3 is, how Google AI video generation fits into creator workflows, and what a practical product flow should include.',
-    angle: 'VeoVido focuses on the product layer around that intent: identity-safe selfie upload, genre templates, script controls, voice options, and export sizes for social video.',
+    angle: 'VeoVido focuses on the product layer around that intent: identity-safe selfie upload, genre scene formats, script controls, voice options, and export sizes for social video.',
     caution: 'VeoVido is an independent SaaS concept and is not affiliated with Google.',
   },
   {
@@ -159,14 +159,14 @@ const keywordPages = [
     title: 'Veo 3 AI Free: How to Test Before Paying for Exports',
     description: 'A practical guide for testing Veo 3 AI free options before paying for clean exports, voice cloning, 4K, or commercial use.',
     intent: 'The user wants to try AI video with low commitment.',
-    angle: 'A good SaaS flow can let users explore templates and plan the scene first, while keeping payment tied to the finished export value.',
+    angle: 'A good SaaS flow can let users explore scene formats and plan the clip first, while keeping payment tied to the finished export value.',
     caution: 'Free access may be limited by credits, watermark, wait time, resolution, or region.',
   },
   {
     keyword: 'Google Veo 3 video generator',
     slug: 'google-veo-3-video-generator',
     title: 'Google Veo 3 Video Generator Workflow for Movie-Style Clips',
-    description: 'How Google Veo 3 video generator interest can become a practical selfie-to-movie workflow with templates, voice, friends, and exports.',
+    description: 'How Google Veo 3 video generator interest can become a practical selfie-to-movie workflow with scene formats, voice, friends, and exports.',
     intent: 'Searchers often know the model name and need a product path that gets them to a finished clip.',
     angle: 'VeoVido packages that path around a clear creator promise: upload one selfie and become the star of a cinematic short made for social sharing.',
     caution: 'This is an independent product page about workflow and search intent, not an official Google page.',
@@ -370,9 +370,9 @@ h1 { font-size: clamp(36px, 4.9vw, 58px); max-width: 780px; }
 .card p, .card li { color: var(--muted); }
 .card.dark p, .card.dark li { color: rgba(255,255,255,.72); }
 .icon-pill { width: 42px; height: 42px; border-radius: 8px; display: grid; place-items: center; margin-bottom: 16px; background: rgba(244,109,79,.12); color: var(--wine); font-weight: 950; }
-.template-card { min-height: 154px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(145deg, rgba(17,21,31,.95), rgba(111,29,59,.86)); color: white; }
-.template-card:nth-child(2n) { background: linear-gradient(145deg, rgba(16,24,40,.95), rgba(58,169,158,.82)); }
-.template-card p { color: rgba(255,255,255,.74); }
+.scene-card { min-height: 154px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(145deg, rgba(17,21,31,.95), rgba(111,29,59,.86)); color: white; }
+.scene-card:nth-child(2n) { background: linear-gradient(145deg, rgba(16,24,40,.95), rgba(58,169,158,.82)); }
+.scene-card p { color: rgba(255,255,255,.74); }
 .pricing-toolbar { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 18px 0 30px; flex-wrap: wrap; }
 .billing-toggle { display: inline-grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 8px; border: 1px solid var(--line); background: white; }
 .billing-chip { border: 0; border-radius: 7px; min-height: 40px; padding: 0 14px; background: transparent; color: var(--muted); font-weight: 900; cursor: pointer; }
@@ -857,10 +857,21 @@ const launchFlowJs = String.raw`
     return popup
   }
 
-  function writePopupLoading(popup, pricing) {
+  function getPaymentProviderLabel(provider) {
+    return provider === 'nowpayments' ? 'USDC wallet checkout' : 'Secure Creem popup'
+  }
+
+  function getPaymentPopupName(provider) {
+    return provider === 'nowpayments' ? 'veovido-usdc-wallet-checkout' : 'veovido-creem-checkout'
+  }
+
+  function writePopupLoading(popup, pricing, provider) {
     if (!popup || popup.closed) return
+    const loadingText = provider === 'nowpayments'
+      ? 'Preparing your USDC wallet payment window.'
+      : 'Preparing your secure Creem payment window.'
     popup.document.open()
-    popup.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>VeoVido Checkout</title><style>body{margin:0;font-family:Inter,Arial,sans-serif;background:#11151f;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}main{max-width:380px;text-align:center;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px;background:rgba(255,255,255,.06)}strong{color:#f4bd4c;text-transform:uppercase;letter-spacing:.12em;font-size:12px}h1{font-size:28px;line-height:1.1;margin:12px 0}p{color:rgba(255,255,255,.72);line-height:1.6}</style></head><body><main><strong>VeoVido</strong><h1>' + pricing.plan.name + ' checkout</h1><p>Preparing your secure Creem payment window.</p></main></body></html>')
+    popup.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>VeoVido Checkout</title><style>body{margin:0;font-family:Inter,Arial,sans-serif;background:#11151f;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}main{max-width:380px;text-align:center;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px;background:rgba(255,255,255,.06)}strong{color:#f4bd4c;text-transform:uppercase;letter-spacing:.12em;font-size:12px}h1{font-size:28px;line-height:1.1;margin:12px 0}p{color:rgba(255,255,255,.72);line-height:1.6}</style></head><body><main><strong>VeoVido</strong><h1>' + pricing.plan.name + ' checkout</h1><p>' + loadingText + '</p></main></body></html>')
     popup.document.close()
   }
 
@@ -879,9 +890,9 @@ const launchFlowJs = String.raw`
     }, 700)
   }
 
-  function navigatePopup(popup, url) {
+  function navigatePopup(popup, url, provider) {
     if (!url) return false
-    const activePopup = popup || openCenteredPopup('veovido-creem-checkout', 560, 780)
+    const activePopup = popup || openCenteredPopup(getPaymentPopupName(provider), 560, 780)
     if (!activePopup) return false
     try {
       activePopup.location.href = url
@@ -894,8 +905,9 @@ const launchFlowJs = String.raw`
     }
   }
 
-  async function requestCheckoutSession(pricing) {
-    const response = await fetch('/api/launch-checkout', {
+  async function requestCheckoutSession(pricing, provider) {
+    const endpoint = provider === 'nowpayments' ? '/api/nowpayments-checkout' : '/api/launch-checkout'
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ planId: pricing.selectionId, source: state.source }),
@@ -907,41 +919,47 @@ const launchFlowJs = String.raw`
     return payload
   }
 
-  async function startCheckoutFlow() {
+  async function startCheckoutFlow(provider) {
+    const paymentProvider = provider === 'nowpayments' ? 'nowpayments' : 'creem'
     const pricing = getPricing(state.selectedPlanId, state.billingCycle)
     if (state.requestInFlight) return
     state.requestInFlight = true
+    state.paymentProvider = paymentProvider
     state.paymentStatus = 'loading'
-    state.paymentMessage = 'Preparing your checkout session. A secure Creem payment popup should appear over this page in a moment.'
+    state.paymentMessage = paymentProvider === 'nowpayments'
+      ? 'Preparing your checkout session. A USDC wallet payment popup should appear over this page in a moment.'
+      : 'Preparing your checkout session. A secure Creem payment popup should appear over this page in a moment.'
     state.checkoutUrl = ''
     state.orderId = ''
     setStep('payment')
     render()
 
-    const popup = openCenteredPopup('veovido-creem-checkout', 560, 780)
+    const popup = openCenteredPopup(getPaymentPopupName(paymentProvider), 560, 780)
     if (popup) {
       state.popup = popup
-      writePopupLoading(popup, pricing)
+      writePopupLoading(popup, pricing, paymentProvider)
       ensurePopupMonitor()
     }
 
     safeTrack('plan_selected', { source: state.source, planId: pricing.selectionId, billingCycle: pricing.billingCycle, amountCents: pricing.amountCents })
-    safeTrack('checkout_started', { source: state.source, planId: pricing.selectionId, billingCycle: pricing.billingCycle, amountCents: pricing.amountCents })
+    safeTrack('checkout_started', { source: state.source, planId: pricing.selectionId, billingCycle: pricing.billingCycle, amountCents: pricing.amountCents, provider: paymentProvider })
 
     try {
-      const payload = await requestCheckoutSession(pricing)
+      const payload = await requestCheckoutSession(pricing, paymentProvider)
       state.orderId = payload.orderId || ''
       state.checkoutUrl = payload.checkoutUrl || ''
-      const opened = navigatePopup(popup, state.checkoutUrl)
+      const opened = navigatePopup(popup, state.checkoutUrl, paymentProvider)
       state.paymentStatus = opened ? 'ready' : 'blocked'
       state.paymentMessage = opened
-        ? 'Your secure Creem payment popup is open. Finish payment there and this page will remain ready behind it.'
+        ? (paymentProvider === 'nowpayments'
+          ? 'Your USDC wallet payment popup is open. Finish payment there and this page will remain ready behind it.'
+          : 'Your secure Creem payment popup is open. Finish payment there and this page will remain ready behind it.')
         : 'Your browser blocked the popup. Use the button below to reopen secure payment.'
-      safeTrack('checkout_redirected', { source: state.source, planId: pricing.selectionId, orderId: state.orderId, popupMode: opened ? 'auto' : 'manual' })
+      safeTrack('checkout_redirected', { source: state.source, planId: pricing.selectionId, orderId: state.orderId, popupMode: opened ? 'auto' : 'manual', provider: paymentProvider })
     } catch (error) {
       state.paymentStatus = 'error'
       state.paymentMessage = 'Checkout is not available yet. Please try again in a moment.'
-      safeTrack('checkout_start_failed', { source: state.source, planId: pricing.selectionId, message: error instanceof Error ? error.message : 'Checkout failed' })
+      safeTrack('checkout_start_failed', { source: state.source, planId: pricing.selectionId, message: error instanceof Error ? error.message : 'Checkout failed', provider: paymentProvider })
       try { if (popup && !popup.closed) popup.close() } catch {}
     } finally {
       state.requestInFlight = false
@@ -1026,12 +1044,13 @@ const launchFlowJs = String.raw`
     if (elements.paymentPlan) elements.paymentPlan.textContent = formatSelectionTitle(pricing)
     if (elements.paymentBilling) elements.paymentBilling.textContent = pricing.paymentBilling
     if (elements.paymentDiscount) elements.paymentDiscount.textContent = pricing.discountLabel
-    if (elements.paymentProvider) elements.paymentProvider.textContent = 'Secure Creem popup'
+    if (elements.paymentProvider) elements.paymentProvider.textContent = getPaymentProviderLabel(state.paymentProvider)
     if (elements.paymentStatus) elements.paymentStatus.textContent = state.paymentMessage || 'Preparing your checkout session.'
     if (elements.paymentLink) {
       if (state.checkoutUrl) {
         elements.paymentLink.hidden = false
         elements.paymentLink.href = state.checkoutUrl
+        elements.paymentLink.target = getPaymentPopupName(state.paymentProvider)
       } else {
         elements.paymentLink.hidden = true
         elements.paymentLink.removeAttribute('href')
@@ -1066,6 +1085,7 @@ const launchFlowJs = String.raw`
     elements.selectionTitle = document.querySelector('[data-selection-title]')
     elements.selectionNote = document.querySelector('[data-selection-note]')
     elements.continueButton = document.querySelector('[data-launch-continue]')
+    elements.walletButton = document.querySelector('[data-launch-wallet]')
     elements.paymentPlan = document.querySelector('[data-payment-plan]')
     elements.paymentBilling = document.querySelector('[data-payment-billing]')
     elements.paymentDiscount = document.querySelector('[data-payment-discount]')
@@ -1101,12 +1121,13 @@ const launchFlowJs = String.raw`
         render()
       })
     })
-    if (elements.continueButton) elements.continueButton.addEventListener('click', startCheckoutFlow)
+    if (elements.continueButton) elements.continueButton.addEventListener('click', function () { startCheckoutFlow('creem') })
+    if (elements.walletButton) elements.walletButton.addEventListener('click', function () { startCheckoutFlow('nowpayments') })
     const backButton = document.querySelector('[data-launch-back]')
     if (backButton) backButton.addEventListener('click', function () { state.paymentStatus = 'idle'; setStep('plans'); render() })
     if (elements.paymentLink) {
       elements.paymentLink.addEventListener('click', function () {
-        safeTrack('checkout_redirected', { source: state.source, planId: getPricing(state.selectedPlanId, state.billingCycle).selectionId, popupMode: 'manual_reopen' })
+        safeTrack('checkout_redirected', { source: state.source, planId: getPricing(state.selectedPlanId, state.billingCycle).selectionId, popupMode: 'manual_reopen', provider: state.paymentProvider })
       })
     }
     window.addEventListener('message', handleCheckoutMessage)
@@ -1185,7 +1206,7 @@ function nav() {
       <span>VeoVido</span>
     </a>
     <div class="nav-links">
-      <a href="/#templates">Templates</a>
+      <a href="/#scenes">Scenes</a>
       <a href="/#workflow">Workflow</a>
       <a href="/#pricing">Pricing</a>
       <a href="/veo-3-ai-video/">Veo 3 AI video</a>
@@ -1203,13 +1224,13 @@ function footer() {
     <div class="footer-grid">
       <div>
         <a class="brand" href="/" style="color:white"><span class="brand-mark">V</span><span>VeoVido</span></a>
-        <p>Selfie-to-cinema SaaS for creators who want a clear Veo 3 video generator workflow, cinematic templates, voice options, co-star scenes, and social-ready exports.</p>
+        <p>Selfie-to-cinema SaaS for creators who want a clear Veo 3 video generator workflow, cinematic scene formats, voice options, co-star scenes, and social-ready exports.</p>
         <p><strong>Markets:</strong> United States, global English market, and Southeast Asia.</p>
         <p><a href="mailto:support@aigeamy.com">support@aigeamy.com</a></p>
       </div>
       <div><div class="footer-title">Product</div><div class="footer-links">
         <a href="/#studio">Selfie studio</a>
-        <a href="/#templates">Scene templates</a>
+        <a href="/#scenes">Scene library</a>
         <a href="/#pricing">Pricing</a>
         <a href="/veo-3-flow/">Veo 3 Flow</a>
       </div></div>
@@ -1244,12 +1265,12 @@ function homeHtml() {
           { '@type': 'Offer', name: 'Director', price: '29', priceCurrency: 'USD' },
           { '@type': 'Offer', name: 'Studio', price: '79', priceCurrency: 'USD' },
         ],
-        featureList: ['Selfie character integration', '100+ cinematic templates', 'Dialogue and plot control', 'AI voice clone workflow', 'Friend co-star mode', 'Social export presets'],
+        featureList: ['Selfie character integration', '100+ cinematic scene formats', 'Dialogue and plot control', 'AI voice clone workflow', 'Friend co-star mode', 'Social export presets'],
       },
       {
         '@type': 'FAQPage',
         mainEntity: [
-          { '@type': 'Question', name: 'What is VeoVido?', acceptedAnswer: { '@type': 'Answer', text: 'VeoVido is a web SaaS for turning a selfie, role, and scene template into a cinematic short video workflow.' } },
+          { '@type': 'Question', name: 'What is VeoVido?', acceptedAnswer: { '@type': 'Answer', text: 'VeoVido is a web SaaS for turning a selfie, role, and scene format into a cinematic short video workflow.' } },
           { '@type': 'Question', name: 'Which plan is selected by default?', acceptedAnswer: { '@type': 'Answer', text: 'Director annual is selected by default because repeat creators usually need 10 videos per month, voice cloning, and 4K export.' } },
         ],
       },
@@ -1258,13 +1279,13 @@ function homeHtml() {
 
   const features = [
     ['Face-fit scene engine', 'Upload one selfie and keep the character consistent across film-style shots, lighting, motion, and closeups.'],
-    ['100+ genre templates', 'Action, romance, sci-fi, horror, wuxia, sports highlights, fantasy trailers, travel reels, and creator intros.'],
+    ['100+ genre scene formats', 'Action, romance, sci-fi, horror, wuxia, sports highlights, fantasy trailers, travel reels, and creator intros.'],
     ['Script and role control', 'Pick your line, opponent, co-star, ending, camera mood, and the 15 to 60 second story shape.'],
     ['Voice workflow', 'Record a short sample for a matching voice direction or choose an AI voice actor for safer public exports.'],
     ['Friend co-star mode', 'Invite a friend to upload a selfie and appear in the same short with matched scene logic.'],
     ['Social export presets', 'TikTok, Instagram Reels, YouTube Shorts, and WeChat-friendly formats with caption starters.'],
   ]
-  const templates = [
+  const sceneFormats = [
     ['Hollywood chase', 'Explosive street escape, dramatic light, trailer-style pacing.'],
     ['Romantic airport ending', 'Soft lens, emotional line, final boarding call.'],
     ['Sci-fi commander', 'Neon bridge, planetary threat, heroic closeup.'],
@@ -1289,7 +1310,7 @@ function homeHtml() {
 
   return shell(
     'Veo 3 Video Generator for Selfie-to-Movie AI Shorts',
-    'VeoVido is a Veo 3 video generator workflow that turns one selfie into cinematic AI short videos with templates, dialogue, voice, friend co-stars, and social exports.',
+    'VeoVido is a Veo 3 video generator workflow that turns one selfie into cinematic AI short videos with scene formats, dialogue, voice, friend co-stars, and social exports.',
     '/',
     `<main>
       <section class="hero" id="studio" data-analytics-section="hero">
@@ -1299,10 +1320,10 @@ function homeHtml() {
           <p class="lead">Upload one selfie, choose the scene, add your line, and turn it into a cinematic 15 to 60 second AI short with voice, co-stars, and social-ready exports.</p>
           <div class="hero-actions">
             <a class="btn primary" href="#pricing" data-launch-open data-launch-source="hero_primary" data-launch-plan="director" data-launch-billing="annual" data-analytics-click="hero_checkout" data-analytics-cta="true">Choose Director annual</a>
-            <a class="btn" href="#templates" data-analytics-click="hero_templates">Explore templates</a>
+            <a class="btn" href="#scenes" data-analytics-click="hero_scenes">Explore scenes</a>
           </div>
           <div class="trust-row">
-            <div class="trust-item"><div class="trust-value">100+</div><div class="trust-label">cinematic scene templates</div></div>
+            <div class="trust-item"><div class="trust-value">100+</div><div class="trust-label">cinematic scene formats</div></div>
             <div class="trust-item"><div class="trust-value">15-60s</div><div class="trust-label">social-ready short films</div></div>
             <div class="trust-item"><div class="trust-value">50%</div><div class="trust-label">annual Director savings</div></div>
           </div>
@@ -1341,14 +1362,30 @@ function homeHtml() {
         </div>
       </section>
 
-      <section class="section alt" id="templates" data-analytics-section="templates">
+      <section class="section alt" id="evidence" data-analytics-section="evidence">
         <div class="container">
           <div class="section-head">
-            <p class="kicker">Template library</p>
+            <p class="kicker">Problem, solution, evidence</p>
+            <h2>A creator can see the job, the paid output, and the proof before checkout</h2>
+            <p class="section-desc">The problem is vague video generation intent. The solution is a guided selfie-to-scene workflow. The evidence is a preview, plan, usage limit, consent note, and export receipt that a buyer can review.</p>
+          </div>
+          <div class="grid-4">
+            <article class="card"><h3>Problem</h3><p>Creators know the movie moment they want but do not want to manage raw prompts, likeness risk, voice settings, and export ratios separately.</p></article>
+            <article class="card"><h3>Solution</h3><p>VeoVido turns one selfie, a role, a scene format, dialogue, and export size into a paid cinematic short workflow.</p></article>
+            <article class="card"><h3>Evidence</h3><p>The page exposes pricing, safety notes, FAQ answers, llms.txt, sitemap, and structured data for humans and AI assistants.</p></article>
+            <article class="card"><h3>Receipt</h3><p>Checkout leads to a Director annual workflow with the generated clip, caption starter, and export settings kept together.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="scenes" data-analytics-section="scenes">
+        <div class="container">
+          <div class="section-head">
+            <p class="kicker">Scene library</p>
             <h2>Pick a genre people instantly understand</h2>
             <p class="section-desc">The scene library turns vague AI video interest into concrete desire: this role, this shot, this caption, this export.</p>
           </div>
-          <div class="grid-4">${templates.map((item) => `<article class="card template-card"><h3>${item[0]}</h3><p>${item[1]}</p></article>`).join('')}</div>
+          <div class="grid-4">${sceneFormats.map((item) => `<article class="card scene-card"><h3>${item[0]}</h3><p>${item[1]}</p></article>`).join('')}</div>
         </div>
       </section>
 
@@ -1481,14 +1518,14 @@ function launchModal() {
         </div>
         <div class="launch-modal-footer">
           <div><div class="launch-selection-label">Selected plan</div><div class="launch-selection-value" data-selection-title>Director - Yearly</div><div class="launch-selection-note" data-selection-note>$174 charged yearly. Equivalent to $14.50 per month.</div></div>
-          <div class="launch-footer-actions"><button type="button" class="launch-secondary-button" data-launch-close>Not now</button><button type="button" class="launch-primary-button" data-launch-continue data-analytics-click="launch_modal_continue" data-analytics-cta="true">Continue to Checkout</button></div>
+          <div class="launch-footer-actions"><button type="button" class="launch-secondary-button" data-launch-close>Not now</button><button type="button" class="launch-primary-button" data-launch-continue data-analytics-click="launch_modal_continue" data-analytics-cta="true">Continue to Checkout</button><button type="button" class="launch-secondary-button" data-launch-wallet data-analytics-click="launch_modal_usdc_wallet" data-analytics-cta="true">Pay with USDC Wallet</button></div>
         </div>
       </div>
       <div class="launch-modal-step" data-launch-step="payment" hidden>
         <button type="button" class="launch-back-link" data-launch-back>&lt; Back to plans</button>
         <p class="launch-modal-eyebrow">Secure checkout</p>
         <h2 class="launch-modal-title">Finish your VeoVido purchase</h2>
-        <p class="launch-modal-desc">A Creem payment popup opens centered on your screen. The product page stays open and blurred behind this step.</p>
+        <p class="launch-modal-desc">A payment popup opens centered on your screen. The product page stays open and blurred behind this step.</p>
         <div class="payment-summary-card"><div class="payment-summary-grid">
           <div><div class="payment-summary-label">Plan</div><div class="payment-summary-value" data-payment-plan>Director - Yearly</div></div>
           <div><div class="payment-summary-label">Billing</div><div class="payment-summary-value" data-payment-billing>$174 charged yearly</div></div>
@@ -1541,7 +1578,7 @@ function keywordPageHtml(page) {
           <h2>How to turn the intent into a finished video</h2>
           <ul>
             <li>Start with one clear selfie so the character identity is anchored before scene generation.</li>
-            <li>Pick a genre template instead of writing a vague prompt from scratch.</li>
+            <li>Pick a genre scene format instead of writing a vague prompt from scratch.</li>
             <li>Define the role, one strong line of dialogue, and the emotional ending before checkout.</li>
             <li>Choose the export ratio for TikTok, Instagram Reels, YouTube Shorts, or WeChat before rendering.</li>
             <li>Review likeness, voice, and rights before publishing or inviting a friend as co-star.</li>

@@ -1,0 +1,21 @@
+# Veo 3 Video Generator for Selfie
+
+VeoVido is a Veo 3 video generator workflow that turns one selfie into cinematic AI short videos with playbooks, dialogue, voice, friend co-stars, and social exports.
+
+Website: https://veovido.space/
+Pricing: https://veovido.space/pricing/
+Checkout: https://veovido.space/checkout/
+Support: support@aigeamy.com
+Type: Hosted SaaS workflow product
+
+Problem:
+- Teams need a quotable product definition, pricing path, evidence trail, and checkout route.
+
+Solution:
+- Veo 3 Video Generator for Selfie provides a hosted workflow with public pricing, structured evidence, support contact, and report or receipt outputs.
+
+Useful pages:
+- Home: https://veovido.space/
+- Pricing: https://veovido.space/pricing/
+- Resources: https://veovido.space/resources/
+- Sitemap: https://veovido.space/sitemap.xml

@@ -195,9 +195,9 @@ h1 { font-size: clamp(36px, 4.9vw, 58px); max-width: 780px; }
 .card p, .card li { color: var(--muted); }
 .card.dark p, .card.dark li { color: rgba(255,255,255,.72); }
 .icon-pill { width: 42px; height: 42px; border-radius: 8px; display: grid; place-items: center; margin-bottom: 16px; background: rgba(244,109,79,.12); color: var(--wine); font-weight: 950; }
-.template-card { min-height: 154px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(145deg, rgba(17,21,31,.95), rgba(111,29,59,.86)); color: white; }
-.template-card:nth-child(2n) { background: linear-gradient(145deg, rgba(16,24,40,.95), rgba(58,169,158,.82)); }
-.template-card p { color: rgba(255,255,255,.74); }
+.scene-card { min-height: 154px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(145deg, rgba(17,21,31,.95), rgba(111,29,59,.86)); color: white; }
+.scene-card:nth-child(2n) { background: linear-gradient(145deg, rgba(16,24,40,.95), rgba(58,169,158,.82)); }
+.scene-card p { color: rgba(255,255,255,.74); }
 .pricing-toolbar { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 18px 0 30px; flex-wrap: wrap; }
 .billing-toggle { display: inline-grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 8px; border: 1px solid var(--line); background: white; }
 .billing-chip { border: 0; border-radius: 7px; min-height: 40px; padding: 0 14px; background: transparent; color: var(--muted); font-weight: 900; cursor: pointer; }

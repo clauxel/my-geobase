@@ -186,10 +186,21 @@
     return popup
   }
 
-  function writePopupLoading(popup, pricing) {
+  function getPaymentProviderLabel(provider) {
+    return provider === 'nowpayments' ? 'USDC wallet checkout' : 'Secure Creem popup'
+  }
+
+  function getPaymentPopupName(provider) {
+    return provider === 'nowpayments' ? 'veovido-usdc-wallet-checkout' : 'veovido-creem-checkout'
+  }
+
+  function writePopupLoading(popup, pricing, provider) {
     if (!popup || popup.closed) return
+    const loadingText = provider === 'nowpayments'
+      ? 'Preparing your USDC wallet payment window.'
+      : 'Preparing your secure Creem payment window.'
     popup.document.open()
-    popup.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>VeoVido Checkout</title><style>body{margin:0;font-family:Inter,Arial,sans-serif;background:#11151f;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}main{max-width:380px;text-align:center;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px;background:rgba(255,255,255,.06)}strong{color:#f4bd4c;text-transform:uppercase;letter-spacing:.12em;font-size:12px}h1{font-size:28px;line-height:1.1;margin:12px 0}p{color:rgba(255,255,255,.72);line-height:1.6}</style></head><body><main><strong>VeoVido</strong><h1>' + pricing.plan.name + ' checkout</h1><p>Preparing your secure Creem payment window.</p></main></body></html>')
+    popup.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>VeoVido Checkout</title><style>body{margin:0;font-family:Inter,Arial,sans-serif;background:#11151f;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}main{max-width:380px;text-align:center;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px;background:rgba(255,255,255,.06)}strong{color:#f4bd4c;text-transform:uppercase;letter-spacing:.12em;font-size:12px}h1{font-size:28px;line-height:1.1;margin:12px 0}p{color:rgba(255,255,255,.72);line-height:1.6}</style></head><body><main><strong>VeoVido</strong><h1>' + pricing.plan.name + ' checkout</h1><p>' + loadingText + '</p></main></body></html>')
     popup.document.close()
   }
 
@@ -208,9 +219,9 @@
     }, 700)
   }
 
-  function navigatePopup(popup, url) {
+  function navigatePopup(popup, url, provider) {
     if (!url) return false
-    const activePopup = popup || openCenteredPopup('veovido-creem-checkout', 560, 780)
+    const activePopup = popup || openCenteredPopup(getPaymentPopupName(provider), 560, 780)
     if (!activePopup) return false
     try {
       activePopup.location.href = url
@@ -223,8 +234,9 @@
     }
   }
 
-  async function requestCheckoutSession(pricing) {
-    const response = await fetch('/api/launch-checkout', {
+  async function requestCheckoutSession(pricing, provider) {
+    const endpoint = provider === 'nowpayments' ? '/api/nowpayments-checkout' : '/api/launch-checkout'
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ planId: pricing.selectionId, source: state.source }),
@@ -236,41 +248,47 @@
     return payload
   }
 
-  async function startCheckoutFlow() {
+  async function startCheckoutFlow(provider) {
+    const paymentProvider = provider === 'nowpayments' ? 'nowpayments' : 'creem'
     const pricing = getPricing(state.selectedPlanId, state.billingCycle)
     if (state.requestInFlight) return
     state.requestInFlight = true
+    state.paymentProvider = paymentProvider
     state.paymentStatus = 'loading'
-    state.paymentMessage = 'Preparing your checkout session. A secure Creem payment popup should appear over this page in a moment.'
+    state.paymentMessage = paymentProvider === 'nowpayments'
+      ? 'Preparing your checkout session. A USDC wallet payment popup should appear over this page in a moment.'
+      : 'Preparing your checkout session. A secure Creem payment popup should appear over this page in a moment.'
     state.checkoutUrl = ''
     state.orderId = ''
     setStep('payment')
     render()
 
-    const popup = openCenteredPopup('veovido-creem-checkout', 560, 780)
+    const popup = openCenteredPopup(getPaymentPopupName(paymentProvider), 560, 780)
     if (popup) {
       state.popup = popup
-      writePopupLoading(popup, pricing)
+      writePopupLoading(popup, pricing, paymentProvider)
       ensurePopupMonitor()
     }
 
     safeTrack('plan_selected', { source: state.source, planId: pricing.selectionId, billingCycle: pricing.billingCycle, amountCents: pricing.amountCents })
-    safeTrack('checkout_started', { source: state.source, planId: pricing.selectionId, billingCycle: pricing.billingCycle, amountCents: pricing.amountCents })
+    safeTrack('checkout_started', { source: state.source, planId: pricing.selectionId, billingCycle: pricing.billingCycle, amountCents: pricing.amountCents, provider: paymentProvider })
 
     try {
-      const payload = await requestCheckoutSession(pricing)
+      const payload = await requestCheckoutSession(pricing, paymentProvider)
       state.orderId = payload.orderId || ''
       state.checkoutUrl = payload.checkoutUrl || ''
-      const opened = navigatePopup(popup, state.checkoutUrl)
+      const opened = navigatePopup(popup, state.checkoutUrl, paymentProvider)
       state.paymentStatus = opened ? 'ready' : 'blocked'
       state.paymentMessage = opened
-        ? 'Your secure Creem payment popup is open. Finish payment there and this page will remain ready behind it.'
+        ? (paymentProvider === 'nowpayments'
+          ? 'Your USDC wallet payment popup is open. Finish payment there and this page will remain ready behind it.'
+          : 'Your secure Creem payment popup is open. Finish payment there and this page will remain ready behind it.')
         : 'Your browser blocked the popup. Use the button below to reopen secure payment.'
-      safeTrack('checkout_redirected', { source: state.source, planId: pricing.selectionId, orderId: state.orderId, popupMode: opened ? 'auto' : 'manual' })
+      safeTrack('checkout_redirected', { source: state.source, planId: pricing.selectionId, orderId: state.orderId, popupMode: opened ? 'auto' : 'manual', provider: paymentProvider })
     } catch (error) {
       state.paymentStatus = 'error'
       state.paymentMessage = 'Checkout is not available yet. Please try again in a moment.'
-      safeTrack('checkout_start_failed', { source: state.source, planId: pricing.selectionId, message: error instanceof Error ? error.message : 'Checkout failed' })
+      safeTrack('checkout_start_failed', { source: state.source, planId: pricing.selectionId, message: error instanceof Error ? error.message : 'Checkout failed', provider: paymentProvider })
       try { if (popup && !popup.closed) popup.close() } catch {}
     } finally {
       state.requestInFlight = false
@@ -355,12 +373,13 @@
     if (elements.paymentPlan) elements.paymentPlan.textContent = formatSelectionTitle(pricing)
     if (elements.paymentBilling) elements.paymentBilling.textContent = pricing.paymentBilling
     if (elements.paymentDiscount) elements.paymentDiscount.textContent = pricing.discountLabel
-    if (elements.paymentProvider) elements.paymentProvider.textContent = 'Secure Creem popup'
+    if (elements.paymentProvider) elements.paymentProvider.textContent = getPaymentProviderLabel(state.paymentProvider)
     if (elements.paymentStatus) elements.paymentStatus.textContent = state.paymentMessage || 'Preparing your checkout session.'
     if (elements.paymentLink) {
       if (state.checkoutUrl) {
         elements.paymentLink.hidden = false
         elements.paymentLink.href = state.checkoutUrl
+        elements.paymentLink.target = getPaymentPopupName(state.paymentProvider)
       } else {
         elements.paymentLink.hidden = true
         elements.paymentLink.removeAttribute('href')
@@ -395,6 +414,7 @@
     elements.selectionTitle = document.querySelector('[data-selection-title]')
     elements.selectionNote = document.querySelector('[data-selection-note]')
     elements.continueButton = document.querySelector('[data-launch-continue]')
+    elements.walletButton = document.querySelector('[data-launch-wallet]')
     elements.paymentPlan = document.querySelector('[data-payment-plan]')
     elements.paymentBilling = document.querySelector('[data-payment-billing]')
     elements.paymentDiscount = document.querySelector('[data-payment-discount]')
@@ -430,12 +450,13 @@
         render()
       })
     })
-    if (elements.continueButton) elements.continueButton.addEventListener('click', startCheckoutFlow)
+    if (elements.continueButton) elements.continueButton.addEventListener('click', function () { startCheckoutFlow('creem') })
+    if (elements.walletButton) elements.walletButton.addEventListener('click', function () { startCheckoutFlow('nowpayments') })
     const backButton = document.querySelector('[data-launch-back]')
     if (backButton) backButton.addEventListener('click', function () { state.paymentStatus = 'idle'; setStep('plans'); render() })
     if (elements.paymentLink) {
       elements.paymentLink.addEventListener('click', function () {
-        safeTrack('checkout_redirected', { source: state.source, planId: getPricing(state.selectedPlanId, state.billingCycle).selectionId, popupMode: 'manual_reopen' })
+        safeTrack('checkout_redirected', { source: state.source, planId: getPricing(state.selectedPlanId, state.billingCycle).selectionId, popupMode: 'manual_reopen', provider: state.paymentProvider })
       })
     }
     window.addEventListener('message', handleCheckoutMessage)

@@ -1,3 +1,4 @@
+import { recordAnalyticsEvents } from './analytics.js'
 const CANONICAL_ORIGIN = 'https://veovido.space'
 const CANONICAL_HOSTS = new Set(['veovido.space', 'www.veovido.space'])
 const ANNUAL_DISCOUNT_MULTIPLIER = 0.5
@@ -26,7 +27,7 @@ export const keywordPaths = [
 
 const indexablePaths = ['/', ...keywordPaths, '/privacy', '/terms']
 
-const planCatalog = {
+export const planCatalog = {
   star: {
     id: 'star',
     name: 'Star',
@@ -374,23 +375,11 @@ export async function handleAnalytics(request, env) {
   let persisted = false
 
   try {
-    if (env?.ANALYTICS_KV?.put && events.length) {
-      const batchId = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`
-      const day = receivedAt.slice(0, 10)
-      const hour = receivedAt.slice(11, 13)
-      await env.ANALYTICS_KV.put(
-        `events/${day}/${hour}/${batchId}.json`,
-        JSON.stringify({
-          site: 'veovido.space',
-          receivedAt,
-          country: request.headers.get('CF-IPCountry') || null,
-          accepted: events.length,
-          events,
-        }),
-        { expirationTtl: 60 * 60 * 24 * 180 },
-      )
-      persisted = true
-    }
+    const result = await recordAnalyticsEvents(env, events, {
+      siteKey: 'veovido',
+      requestUrl: new URL(request.url),
+    })
+    persisted = result.persisted
   } catch (error) {
     console.log(JSON.stringify({ type: 'analytics_store_error', site: 'veovido.space', message: String(error?.message || error) }))
   }
@@ -409,7 +398,7 @@ export function handleRuntime(request) {
     defaultPlan: 'director',
     defaultBilling: 'annual',
     annualDiscount: '50%',
-    analytics: 'first-party-kv',
+    analytics: 'cloudflare-d1',
     ts: Date.now(),
   }, 200, request)
 }
