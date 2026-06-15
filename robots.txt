@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /checkout/done/
-Disallow: /resources/
 Sitemap: https://geobase.online/sitemap.xml
 Allow: /llms.txt

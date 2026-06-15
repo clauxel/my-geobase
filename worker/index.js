@@ -300,7 +300,7 @@ export async function handleCheckout(request, env, requestUrl = new URL(request.
     return jsonResponse({ ok: false, error: 'Invalid JSON body.' }, 400, request)
   }
 
-  const planId = typeof body?.planId === 'string' ? body.planId : 'growth'
+  const planId = typeof body?.planId === 'string' ? body.planId : typeof body?.plan === 'string' ? body.plan : 'growth'
   const billing = body?.billing === 'monthly' ? 'monthly' : 'annual'
   const plan = planCatalog[planId] || planCatalog.growth
   const successUrl = `${resolvePublicAppOrigin(requestUrl, request)}/checkout/done/`
@@ -458,7 +458,7 @@ async function fetchAsset(request, env) {
 
   if (staticAssetPaths.has(normalizedPath)) {
     const assetUrl = new URL(request.url)
-    assetUrl.pathname = normalizedPath === '/' ? '/' : `${normalizedPath}/index.html`
+    assetUrl.pathname = normalizedPath === '/' ? '/' : `${normalizedPath}/`
     const assetResponse = await env.SITE_ASSETS.fetch(new Request(assetUrl.toString(), request))
     if (assetResponse.status !== 404) return withSecurityHeaders(assetResponse, request)
   }
@@ -499,6 +499,9 @@ export async function handleRequest(request, env) {
 
   if (requestUrl.pathname === '/sitemap.xml') return handleSitemap(request)
   if (requestUrl.pathname === '/robots.txt') return handleRobots(request)
+  if ((request.method === 'GET' || request.method === 'HEAD') && (requestUrl.pathname === '/checkout' || requestUrl.pathname === '/checkout/')) {
+    return Response.redirect(new URL('/pricing/', requestUrl).toString(), 302)
+  }
 
   return fetchAsset(request, env)
 }

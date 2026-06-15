@@ -1,4 +1,12 @@
-export type KeywordPage = {
+export type DifferentiationBrief = {
+  title: string;
+  example: string;
+  dataPoint: string;
+  contrast: string;
+  limitation: string;
+};
+
+export type KeywordPageBase = {
   slug: string;
   path: string;
   keyword: string;
@@ -15,7 +23,11 @@ export type KeywordPage = {
   checklist: string[];
 };
 
-export const keywordPages: KeywordPage[] = [
+export type KeywordPage = KeywordPageBase & {
+  differentiation: DifferentiationBrief;
+};
+
+const rawKeywordPages: KeywordPageBase[] = [
   {
     slug: "generative-engine-optimization",
     path: "/generative-engine-optimization",
@@ -847,5 +859,218 @@ export const keywordPages: KeywordPage[] = [
     ],
   },
 ];
+
+const differentiationBriefs: Record<string, DifferentiationBrief> = {
+  "generative-engine-optimization": {
+    title: "How to make this GEO page less interchangeable",
+    example:
+      "Use a real visibility audit pattern: choose 40 to 60 buyer prompts, run the same prompt set weekly, and separate brand mentions from linked source citations.",
+    dataPoint:
+      "Record prompt count, engine, date, cited URL, competitor cited, citation type, and follow-up session or signup signal.",
+    contrast:
+      "Generic GEO content says AI search is changing SEO. Distinct GEO content shows the exact prompts, missing source citations, and page fixes behind the change.",
+    limitation:
+      "A single prompt run is not reliable enough for a claim. Treat it as a snapshot until the same prompt set is measured over time.",
+  },
+  "answer-engine-optimization": {
+    title: "How to turn AEO advice into visible page evidence",
+    example:
+      "Show a before-and-after answer block: one vague introduction, one two-sentence direct answer, and the supporting evidence that makes the answer quotable.",
+    dataPoint:
+      "Track answer location, heading clarity, visible evidence, schema match, and whether answer engines quote or link the page after the rewrite.",
+    contrast:
+      "Generic AEO content lists FAQs and schema. Distinct AEO content proves which answer block changed and why it is easier to cite.",
+    limitation:
+      "AEO can improve clarity, but it does not guarantee citation if competitors have stronger authority, fresher data, or better-known entities.",
+  },
+  "generative-engine-optimization-github": {
+    title: "A GitHub workflow needs inspectable run records",
+    example:
+      "Include a sample run log with engine, date, prompt, answer text hash, cited URLs, brand position, and manual review status.",
+    dataPoint:
+      "Store counts for source citations, unlinked mentions, competitor citations, parser failures, and reviewed exceptions.",
+    contrast:
+      "A generic GitHub guide says build a tracker. A useful one shows the JSON shape, validation steps, and where the script can misread an answer.",
+    limitation:
+      "Open repositories should not contain private prompts, customer names, API keys, account cookies, or raw outputs that expose client strategy.",
+  },
+  "generative-engine-optimization-pdf": {
+    title: "A PDF report should read like a decision memo",
+    example:
+      "Add a sample report page with citation share, top three competitor sources, missing source pages, and the next page owner.",
+    dataPoint:
+      "Report prompt sample size, monitoring window, source citation rate, competitor gap, recommended fixes, and confidence level.",
+    contrast:
+      "Generic PDF advice lists sections. Distinct advice shows what leadership sees first and what content teams fix next.",
+    limitation:
+      "Do not mix observed citation data with estimated conversion impact. Label estimates separately so the report stays credible.",
+  },
+  "generative-engine-optimization-course": {
+    title: "Course content should produce a real page improvement",
+    example:
+      "Use one product page as the class exercise: baseline prompt map, weak answer block, rewritten evidence section, and a 30-day measurement plan.",
+    dataPoint:
+      "Measure participant output by page score delta, number of evidence blocks added, schema fixes completed, and prompts scheduled for retest.",
+    contrast:
+      "A generic course outline lists modules. A stronger course page shows the artifact each module creates.",
+    limitation:
+      "A course cannot teach a durable GEO process if participants never work on live pages or real prompt sets.",
+  },
+  "generative-engine-optimization-tool": {
+    title: "Tool pages need buying criteria with measurable outputs",
+    example:
+      "Compare tools by whether they expose cited URLs, normalize answer runs, flag competitor displacement, and export page-level fixes.",
+    dataPoint:
+      "Track prompts monitored, engines covered, citation extraction accuracy, export fields, analytics integrations, and report cadence.",
+    contrast:
+      "Generic tool pages repeat feature names. Distinct tool pages show which output a buyer receives and how it changes prioritization.",
+    limitation:
+      "No GEO tool can claim full AI search visibility across every private, personalized, or region-specific answer surface.",
+  },
+  "generative-engine-optimization-strategies": {
+    title: "Strategy should be tied to a prompt-to-page map",
+    example:
+      "Start with one buyer journey and map problem prompts, comparison prompts, vendor prompts, the page that should answer each, and the current cited competitor.",
+    dataPoint:
+      "Record baseline citation share, competitor source count, page readiness score, content owner, effort, and next measurement date.",
+    contrast:
+      "Generic strategy content says optimize for AI. Distinct strategy content shows the exact sequence from missed prompt to page update.",
+    limitation:
+      "Do not create new pages for every prompt. Strengthen pages that already have authority before expanding the content set.",
+  },
+  "generative-engine-optimization-paper": {
+    title: "Research pages need a translation layer",
+    example:
+      "Translate one research finding into a content experiment: add statistics, source context, or clearer quotations, then test the same prompt set.",
+    dataPoint:
+      "Capture the paper claim, the page change inspired by it, prompt baseline, retest window, and whether source citations changed.",
+    contrast:
+      "Generic research summaries quote the abstract. Distinct pages explain what a marketing team should test and what not to overclaim.",
+    limitation:
+      "Research findings do not transfer perfectly to every AI answer surface, language, market, or commercial query.",
+  },
+  "generative-engine-optimization-book": {
+    title: "A book page should prove the operating system",
+    example:
+      "Show a chapter-to-artifact map: prompt inventory, source citation audit, citable-page rewrite, competitor visibility memo, and monthly report.",
+    dataPoint:
+      "List the templates, worksheets, prompt samples, and measurement fields a reader can use after each chapter.",
+    contrast:
+      "Generic book pages sell broad expertise. Distinct book pages show what the reader can build by the end.",
+    limitation:
+      "A book can teach judgment and process, but it cannot replace ongoing monitoring because AI answers keep changing.",
+  },
+  "generative-engine-optimization-examples": {
+    title: "Examples should include the weak version and the improved version",
+    example:
+      "Use a missed-citation example: a brand is mentioned but not linked, then the page gains a dated evidence section and clearer entity markup.",
+    dataPoint:
+      "Show baseline prompt, cited competitor, missing evidence, page edit, retest date, and result category.",
+    contrast:
+      "Generic example pages describe formats. Distinct examples show the problem, the fix, and the measurement plan.",
+    limitation:
+      "Example outcomes should not promise ranking or citation gains. They should show what changed and how to verify it.",
+  },
+  "answer-engine-optimization-examples": {
+    title: "AEO examples need concrete page fragments",
+    example:
+      "Show a direct-answer fragment, the evidence sentence that supports it, the FAQ question it replaces, and the internal link that deepens trust.",
+    dataPoint:
+      "Track answer length, evidence presence, schema match, internal support link, and whether the snippet is quotable without context.",
+    contrast:
+      "Generic examples say add FAQs. Distinct examples show the exact wording that makes the answer useful.",
+    limitation:
+      "Short answers can become thin content if the page does not add supporting context, caveats, or next-step guidance.",
+  },
+  "answer-engine-optimization-course": {
+    title: "Training pages should show the review rubric",
+    example:
+      "Include a scoring rubric for clarity, evidence, schema fit, next action, and measurement plan, then apply it to one sample page.",
+    dataPoint:
+      "Measure pre-training and post-training scores, number of rewritten answer blocks, and prompts scheduled for validation.",
+    contrast:
+      "Generic course pages list lessons. Distinct pages show how a writer will judge and improve a page.",
+    limitation:
+      "AEO training is weak if it teaches formatting without editorial judgment or evidence quality.",
+  },
+  "answer-engine-optimization-vs-generative-engine-optimization": {
+    title: "Comparison pages need decision rules",
+    example:
+      "Add a decision table: use AEO when the page answer is unclear, use GEO when the page is clear but AI answers still cite competitors.",
+    dataPoint:
+      "Record page clarity score, citation baseline, competitor citation count, and whether the fix is editorial, technical, or authority-led.",
+    contrast:
+      "Generic comparisons define two terms. Distinct comparisons tell a team which workflow to run next.",
+    limitation:
+      "AEO and GEO overlap in practice, so the distinction should guide work allocation rather than create separate silos.",
+  },
+  "answer-engine-optimization-hubspot": {
+    title: "HubSpot pages should connect content and CRM evidence",
+    example:
+      "Audit one HubSpot landing page for direct answer, form path, campaign attribution, cited source potential, and follow-up lifecycle stage.",
+    dataPoint:
+      "Track CMS page URL, CTA, UTM discipline, lifecycle stage movement, prompt set, citation status, and competitor source.",
+    contrast:
+      "Generic HubSpot advice says optimize CMS pages. Distinct advice shows how AI answer visibility links to campaign reporting.",
+    limitation:
+      "Do not copy private CRM records into external prompts or AI tools. Use aggregated campaign signals and sanitized examples.",
+  },
+  "answer-engine-optimization-tutorial": {
+    title: "Tutorials should show the artifact at every step",
+    example:
+      "For each step, show the output: target question, direct answer, evidence block, schema choice, internal link, and retest plan.",
+    dataPoint:
+      "Record completion status for each artifact plus the baseline and retest prompts used to validate the page.",
+    contrast:
+      "Generic tutorials say improve the page. Distinct tutorials show the exact deliverable a reader should produce.",
+    limitation:
+      "Schema is only useful when it matches visible content. Adding markup without visible value can make the page weaker.",
+  },
+  "answer-engine-optimization-tools": {
+    title: "Tool stack pages should separate checking from monitoring",
+    example:
+      "Compare a schema validator, a content editor, a prompt monitor, and an analytics platform by the decision each one supports.",
+    dataPoint:
+      "Track supported engines, export fields, citation versus mention handling, schema checks, and whether the tool connects to conversion data.",
+    contrast:
+      "Generic tool lists collect names. Distinct tool pages explain the job each tool does and where it stops.",
+    limitation:
+      "A tool stack creates overhead if the team has no owner for prompt sets, page updates, and recurring review.",
+  },
+  "ai-answer-engine-optimization": {
+    title: "AI AEO content should show the signal chain",
+    example:
+      "Map one page from answer clarity to source trust to citation monitoring to assisted conversion, instead of treating AI visibility as one score.",
+    dataPoint:
+      "Record answer block quality, evidence freshness, source citation status, competitor source, session estimate, and conversion event.",
+    contrast:
+      "Generic AI AEO content repeats trust signals. Distinct content shows how the signals are measured together.",
+    limitation:
+      "AI answer engines can personalize and rewrite results, so reports should show trends and confidence instead of claiming perfect coverage.",
+  },
+  "answer-engine-optimization-jobs": {
+    title: "Hiring pages need a practical work sample",
+    example:
+      "Give candidates a page audit: identify the answer job, rewrite the lead answer, add evidence, choose schema, and define a retest plan.",
+    dataPoint:
+      "Score candidates on editorial judgment, technical SEO basics, measurement design, competitor analysis, and ability to explain uncertainty.",
+    contrast:
+      "Generic job pages list skills. Distinct job pages show the work sample that reveals those skills.",
+    limitation:
+      "AEO is not only a writing role. Hiring only for copy output can miss analytics, schema, and measurement judgment.",
+  },
+};
+
+export const keywordPages: KeywordPage[] = rawKeywordPages.map((page) => {
+  const differentiation = differentiationBriefs[page.slug];
+  if (!differentiation) {
+    throw new Error(`Missing differentiation brief for ${page.slug}`);
+  }
+
+  return {
+    ...page,
+    differentiation,
+  };
+});
 
 export const keywordPageMap = new Map(keywordPages.map((page) => [page.slug, page]));

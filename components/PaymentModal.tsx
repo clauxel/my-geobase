@@ -11,6 +11,7 @@ type PaymentModalProps = {
   billing: Billing;
   initialPopup: Window | null;
   launchKey: number;
+  provider: "creem" | "nowpayments";
   closeModal: () => void;
 };
 
@@ -28,7 +29,7 @@ function centeredPopupFeatures() {
   )},resizable=yes,scrollbars=yes`;
 }
 
-function writeLoadingPage(popup: Window | null, planName: string) {
+function writeLoadingPage(popup: Window | null, planName: string, provider: "creem" | "nowpayments" = "creem") {
   if (!popup) return;
   try {
     popup.document.write(`<!doctype html><html><head><title>Secure checkout</title><style>
@@ -36,15 +37,15 @@ function writeLoadingPage(popup: Window | null, planName: string) {
       main{width:min(420px,calc(100vw - 32px));border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:28px;background:#091622;text-align:center}
       .dot{width:42px;height:42px;border-radius:999px;border:4px solid rgba(34,211,238,.2);border-top-color:#22d3ee;margin:0 auto 18px;animation:spin .8s linear infinite}
       h1{font-size:20px;margin:0 0 8px}p{margin:0;color:#94a3b8;line-height:1.5}@keyframes spin{to{transform:rotate(360deg)}}
-    </style></head><body><main><div class="dot"></div><h1>Opening Creem checkout</h1><p>${planName} checkout is being prepared securely.</p></main></body></html>`);
+    </style></head><body><main><div class="dot"></div><h1>Opening ${provider === "nowpayments" ? "USDC wallet" : "Creem"} checkout</h1><p>${planName} checkout is being prepared securely.</p></main></body></html>`);
     popup.document.close();
   } catch {}
 }
 
-export function openCheckoutShell(planName: string) {
+export function openCheckoutShell(planName: string, provider: "creem" | "nowpayments" = "creem") {
   if (typeof window === "undefined") return null;
-  const popup = window.open("", "geobase_creem_checkout", centeredPopupFeatures());
-  writeLoadingPage(popup, planName);
+  const popup = window.open("", provider === "nowpayments" ? "geobase_nowpayments_checkout" : "geobase_creem_checkout", centeredPopupFeatures());
+  writeLoadingPage(popup, planName, provider);
   return popup;
 }
 
@@ -55,6 +56,7 @@ export default function PaymentModal({
   billing,
   initialPopup,
   launchKey,
+  provider,
   closeModal,
 }: PaymentModalProps) {
   const [status, setStatus] = useState<"opening" | "opened" | "error">("opening");
@@ -90,16 +92,16 @@ export default function PaymentModal({
   useEffect(() => {
     if (!isOpen || !launchKey) return;
     let cancelled = false;
-    const popup = initialPopup && !initialPopup.closed ? initialPopup : openCheckoutShell(planName);
+    const popup = initialPopup && !initialPopup.closed ? initialPopup : openCheckoutShell(planName, provider);
 
     async function createCheckout() {
       setStatus("opening");
       setCheckoutUrl("");
       setError("");
-      trackEvent("checkout_requested", { plan: planId, billing });
+      trackEvent("checkout_requested", { plan: planId, billing, paymentProvider: provider });
 
       try {
-        const response = await fetch("/api/checkout", {
+        const response = await fetch(provider === "nowpayments" ? "/api/nowpayments-checkout" : "/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ planId, billing }),
@@ -110,14 +112,14 @@ export default function PaymentModal({
         setCheckoutUrl(payload.checkoutUrl);
         if (popup && !popup.closed) popup.location.assign(payload.checkoutUrl);
         setStatus("opened");
-        trackEvent("checkout_opened", { plan: planId, billing });
+        trackEvent("checkout_opened", { plan: planId, billing, paymentProvider: provider });
       } catch (checkoutError) {
         if (cancelled) return;
         const message =
           checkoutError instanceof Error ? checkoutError.message : "Secure checkout could not be created yet.";
         setError(message);
         setStatus("error");
-        trackEvent("checkout_error", { plan: planId, billing });
+        trackEvent("checkout_error", { plan: planId, billing, paymentProvider: provider });
         try {
           if (popup && !popup.closed) popup.close();
         } catch {}
@@ -128,7 +130,7 @@ export default function PaymentModal({
     return () => {
       cancelled = true;
     };
-  }, [billing, initialPopup, isOpen, launchKey, planId, planName]);
+  }, [billing, initialPopup, isOpen, launchKey, planId, planName, provider]);
 
   if (!isOpen) return null;
 
@@ -144,7 +146,7 @@ export default function PaymentModal({
           $
         </div>
         <h2 id="checkout-title" className="mt-5 text-2xl font-black text-white">
-          Secure Creem checkout
+          {provider === "nowpayments" ? "Secure USDC wallet checkout" : "Secure Creem checkout"}
         </h2>
         <p className="mt-3 text-sm leading-6 text-slate-300">
           {status === "opening" && `Preparing ${planName} checkout in a centered payment window.`}

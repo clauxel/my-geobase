@@ -34,6 +34,12 @@ export default async function KeywordPage({ params }: PageProps) {
   if (!page) notFound();
 
   const related = keywordPages.filter((item) => item.slug !== page.slug).slice(0, 4);
+  const differentiationItems = [
+    ["Example", page.differentiation.example],
+    ["Data to capture", page.differentiation.dataPoint],
+    ["Generic vs distinct", page.differentiation.contrast],
+    ["Limitation", page.differentiation.limitation],
+  ];
 
   return (
     <main className="bg-[#071019]">
@@ -82,6 +88,21 @@ export default async function KeywordPage({ params }: PageProps) {
                 </ul>
               </article>
             ))}
+
+            <section className="rounded-lg border border-cyan-300/25 bg-[#0b1f24] p-6 md:p-8">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-200">
+                Non-generic content proof
+              </p>
+              <h2 className="mt-3 text-2xl font-black text-white">{page.differentiation.title}</h2>
+              <div className="mt-6 grid gap-5">
+                {differentiationItems.map(([label, text]) => (
+                  <div key={label} className="grid gap-2 border-t border-white/10 pt-5 md:grid-cols-[10rem_1fr]">
+                    <h3 className="text-sm font-black text-cyan-100">{label}</h3>
+                    <p className="text-sm leading-7 text-slate-300">{text}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
 
             <section className="grid gap-5 md:grid-cols-2">
               <div className="rounded-lg border border-white/10 bg-[#091622] p-6">

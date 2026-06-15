@@ -36,21 +36,21 @@ const workflow = [
   ["Attribute", "Connect citation movement to sessions, signups, pipeline, and conversion signals."],
 ];
 
-const proof = [
+const evidencePatterns = [
   [
-    "GeoBase turned scattered AI answer checks into a weekly KPI. We finally saw which comparison pages were being quoted.",
-    "Naomi Reyes",
-    "Head of Content, B2B SaaS",
+    "Mention without source",
+    "An answer names the brand but links to a competitor page. Treat the mention as awareness, then build the missing source page or evidence section.",
+    "Track mention, linked citation, cited competitor, and follow-up session separately.",
   ],
   [
-    "The competitor visibility view changed our roadmap. It showed that a weaker brand was winning because its pages were easier to cite.",
-    "Owen Clarke",
-    "Growth Lead, Global Platform",
+    "Clear page, weak evidence",
+    "The page explains the product well but has no dated data, comparison table, author context, or methodology that an answer engine can safely quote.",
+    "Add a citable evidence block, update date, limitation note, and schema that matches visible content.",
   ],
   [
-    "The monthly report gave leadership a clean answer: citations improved, traffic followed, and the next three content fixes were obvious.",
-    "Lena Hart",
-    "SEO Director, Enterprise Brand",
+    "Citation lift without pipeline",
+    "A page earns more source citations but does not change qualified visits or checkout starts. The next fix is the journey, not another glossary page.",
+    "Compare citation trend, landing page path, CTA clicks, assisted sessions, and conversion quality.",
   ],
 ];
 
@@ -179,22 +179,23 @@ export default function HomePage() {
       <section className="border-t border-white/10 bg-[#091a21] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">Teams using the workflow</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">Field patterns</p>
             <h2 className="mt-3 text-3xl font-black text-white md:text-5xl">
-              Built for brands that cannot wait for AI search to become obvious
+              Three evidence patterns that make GEO content harder to copy
             </h2>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
-            {proof.map(([quote, name, role]) => (
-              <article key={name} className="rounded-lg border border-white/10 bg-[#061116] p-7">
-                <div className="mb-5 text-amber-300" aria-label="5 out of 5 rating">
-                  *****
+            {evidencePatterns.map(([title, situation, measurement], index) => (
+              <article key={title} className="rounded-lg border border-white/10 bg-[#061116] p-7">
+                <div className="mb-5 grid h-10 w-10 place-items-center rounded-md bg-amber-300 text-sm font-black text-slate-950">
+                  {index + 1}
                 </div>
-                <p className="text-sm leading-7 text-slate-300">&ldquo;{quote}&rdquo;</p>
-                <div className="mt-6">
-                  <p className="text-sm font-bold text-white">{name}</p>
-                  <p className="text-xs text-slate-500">{role}</p>
-                </div>
+                <h3 className="text-base font-black text-white">{title}</h3>
+                <p className="mt-4 text-sm leading-7 text-slate-300">{situation}</p>
+                <p className="mt-5 border-t border-white/10 pt-5 text-xs font-bold uppercase tracking-[0.12em] text-cyan-100">
+                  Measurement
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-400">{measurement}</p>
               </article>
             ))}
           </div>
