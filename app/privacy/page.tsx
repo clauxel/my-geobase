@@ -28,7 +28,7 @@ export default function PrivacyPage() {
             <p className="mt-3">
               We may process contact details, account information, brand names, domains, competitor names, tracked
               terms, submitted URLs, page audit inputs, first-party analytics events, payment status, support messages,
-              and service usage data. Payment details are processed by Creem or another payment processor; GeoBase does
+              and service usage data. Payment details are processed by Polar or another payment processor; GeoBase does
               not store full card numbers.
             </p>
           </section>

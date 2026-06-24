@@ -11,7 +11,7 @@ type PaymentModalProps = {
   billing: Billing;
   initialPopup: Window | null;
   launchKey: number;
-  provider: "creem" | "nowpayments";
+  provider: "polar" | "polar";
   closeModal: () => void;
 };
 
@@ -29,7 +29,7 @@ function centeredPopupFeatures() {
   )},resizable=yes,scrollbars=yes`;
 }
 
-function writeLoadingPage(popup: Window | null, planName: string, provider: "creem" | "nowpayments" = "creem") {
+function writeLoadingPage(popup: Window | null, planName: string, provider: "polar" | "polar" = "polar") {
   if (!popup) return;
   try {
     popup.document.write(`<!doctype html><html><head><title>Secure checkout</title><style>
@@ -37,14 +37,14 @@ function writeLoadingPage(popup: Window | null, planName: string, provider: "cre
       main{width:min(420px,calc(100vw - 32px));border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:28px;background:#091622;text-align:center}
       .dot{width:42px;height:42px;border-radius:999px;border:4px solid rgba(34,211,238,.2);border-top-color:#22d3ee;margin:0 auto 18px;animation:spin .8s linear infinite}
       h1{font-size:20px;margin:0 0 8px}p{margin:0;color:#94a3b8;line-height:1.5}@keyframes spin{to{transform:rotate(360deg)}}
-    </style></head><body><main><div class="dot"></div><h1>Opening ${provider === "nowpayments" ? "USDC wallet" : "Creem"} checkout</h1><p>${planName} checkout is being prepared securely.</p></main></body></html>`);
+    </style></head><body><main><div class="dot"></div><h1>Opening ${provider === "polar" ? "USDC wallet" : "Polar"} checkout</h1><p>${planName} checkout is being prepared securely.</p></main></body></html>`);
     popup.document.close();
   } catch {}
 }
 
-export function openCheckoutShell(planName: string, provider: "creem" | "nowpayments" = "creem") {
+export function openCheckoutShell(planName: string, provider: "polar" | "polar" = "polar") {
   if (typeof window === "undefined") return null;
-  const popup = window.open("", provider === "nowpayments" ? "geobase_nowpayments_checkout" : "geobase_creem_checkout", centeredPopupFeatures());
+  const popup = window.open("", provider === "polar" ? "geobase_polar_checkout" : "geobase_polar_checkout", centeredPopupFeatures());
   writeLoadingPage(popup, planName, provider);
   return popup;
 }
@@ -101,7 +101,7 @@ export default function PaymentModal({
       trackEvent("checkout_requested", { plan: planId, billing, paymentProvider: provider });
 
       try {
-        const response = await fetch(provider === "nowpayments" ? "/api/nowpayments-checkout" : "/api/checkout", {
+        const response = await fetch(provider === "polar" ? "/api/polar-checkout" : "/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ planId, billing }),
@@ -146,7 +146,7 @@ export default function PaymentModal({
           $
         </div>
         <h2 id="checkout-title" className="mt-5 text-2xl font-black text-white">
-          {provider === "nowpayments" ? "Secure USDC wallet checkout" : "Secure Creem checkout"}
+          {provider === "polar" ? "Secure USDC wallet checkout" : "Secure Polar checkout"}
         </h2>
         <p className="mt-3 text-sm leading-6 text-slate-300">
           {status === "opening" && `Preparing ${planName} checkout in a centered payment window.`}
@@ -158,7 +158,7 @@ export default function PaymentModal({
           {checkoutUrl ? (
             <a
               href={checkoutUrl}
-              target="geobase_creem_checkout"
+              target="geobase_polar_checkout"
               rel="noreferrer"
               className="rounded-md bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 hover:bg-lime-300"
             >

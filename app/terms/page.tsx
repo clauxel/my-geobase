@@ -46,7 +46,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-black text-white">4. Subscriptions and Payment</h2>
             <p className="mt-3">
-              Paid plans are billed through Creem or another payment processor. Annual billing may be discounted compared
+              Paid plans are billed through Polar or another payment processor. Annual billing may be discounted compared
               with monthly billing. Fees are non-refundable except where required by law or expressly agreed in writing.
               You authorize recurring charges for the selected plan until cancellation.
             </p>

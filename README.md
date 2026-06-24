@@ -24,4 +24,4 @@ npm run deploy:pages
 npm run deploy:worker
 ```
 
-Payment checkout is handled through `/api/checkout` and expects a Creem key in `API_PROD_KEY` or a compatible runtime secret.
+Payment checkout is handled through `/api/checkout` and expects a Polar key in `API_PROD_KEY` or a compatible runtime secret.

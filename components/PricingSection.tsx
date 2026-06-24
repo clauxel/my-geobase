@@ -70,8 +70,8 @@ export default function PricingSection() {
     planId: string;
     planName: string;
     popup: Window | null;
-    provider: "creem" | "nowpayments";
-  }>({ planId: "growth", planName: "Growth", popup: null, provider: "creem" });
+    provider: "polar" | "polar";
+  }>({ planId: "growth", planName: "Growth", popup: null, provider: "polar" });
   const [launchKey, setLaunchKey] = useState(0);
   const [planFlowOpen, setPlanFlowOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -120,7 +120,7 @@ export default function PricingSection() {
     trackEvent("plan_selected", { plan: plan.key, billing });
   }
 
-  function continueToPayment(provider: "creem" | "nowpayments" = "creem") {
+  function continueToPayment(provider: "polar" | "polar" = "polar") {
     const plan = plans.find((item) => item.key === selectedPlan) || plans[1];
     const popup = openCheckoutShell(plan.name, provider);
     setCheckout({ planId: plan.key, planName: plan.name, popup, provider });
@@ -353,14 +353,14 @@ export default function PricingSection() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => continueToPayment("creem")}
+                  onClick={() => continueToPayment("polar")}
                   className="rounded-md bg-cyan-300 px-5 py-3 text-sm font-black text-slate-950 hover:bg-emerald-300"
                 >
                   Continue to Checkout
                 </button>
                 <button
                   type="button"
-                  onClick={() => continueToPayment("nowpayments")}
+                  onClick={() => continueToPayment("polar")}
                   className="rounded-md border border-white/12 px-5 py-3 text-sm font-semibold text-slate-200 hover:bg-white/5"
                 >
                   Pay with USDC Wallet
